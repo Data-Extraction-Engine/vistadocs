@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#cachewarmer" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -462,9 +467,52 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          concerns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         concerns
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cachewarmer" class="md-nav__link">
+    CacheWarmer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanattributes" class="md-nav__link">
+    CleanAttributes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enforcenil" class="md-nav__link">
+    EnforceNil
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -523,6 +571,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cachewarmer" class="md-nav__link">
+    CacheWarmer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanattributes" class="md-nav__link">
+    CleanAttributes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enforcenil" class="md-nav__link">
+    EnforceNil
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -538,7 +615,47 @@
 
   <h1>concerns</h1>
 
+<h2 id="cachewarmer">CacheWarmer</h2>
+<p>The CacheWarmer module is a concern that can be included in a model. It defines a class method cache_warm_attributes, which can be used to specify a list of attributes of the model that should be cached.</p>
+<p>The concern also defines a private method warm_cache, which is an after_commit hook that runs the CacheWarmerJob with the current model instance as an argument. This job is responsible for warming the cache for the specified attributes of the model instance.</p>
+<p>Example usage:</p>
+<p>Copy code</p>
+<pre><code>class User &lt; ApplicationRecord
+include CacheWarmer
 
+cache_warm_attributes :first_name, :last_name, :email
+end
+</code></pre>
+<p>In this example, the User model will have a cache warmed for its first_name, last_name, and email attributes after it is created or updated.</p>
+<h2 id="cleanattributes">CleanAttributes</h2>
+<p>CleanAttributes is a Rails concern that defines a clean_attributes method and a before_validation callback that calls this method. The clean_attributes method expects a list of attribute names as arguments. The method is intended to be used to "clean" the values of these attributes by calling the squish method on them. The squish method removes excess white space from the beginning and end of a string and replaces any internal sequences of white space with a single space character.</p>
+<p>Attributes</p>
+<p>None.</p>
+<p>Relationships</p>
+<p>None.</p>
+<p>Custom methods</p>
+<p>clean_attributes(*attributes): This method defines a clean_attributes instance method that expects a list of attribute names as arguments. It also defines a before_validation callback that calls this method. The clean_attributes method iterates over the provided attribute names and calls the squish method on the value of each attribute. It then assigns the result back to the attribute. This method is intended to be used to "clean" the values of the provided attributes by removing excess white space and replacing internal sequences of white space with a single space character.
+Examples of usage</p>
+<p>In a model:</p>
+<p>Copy code</p>
+<pre><code>class User &lt; ApplicationRecord
+include CleanAttributes
+
+clean_attributes :first_name, :last_name, :email
+# ...
+end
+</code></pre>
+<p>This will define a before_validation callback in the User model that calls the clean_attributes method before validation. The clean_attributes method will "clean" the values of the first_name, last_name, and email attributes by calling the squish method on them.</p>
+<h2 id="enforcenil">EnforceNil</h2>
+<p>The EnforceNil module is designed to be included in a Rails model and provides a enforce_nil class method which can be used to set specified attributes to nil before the model is saved to the database.</p>
+<p>Attributes that should be set to nil are passed as arguments to the enforce_nil method, and a before_save callback is defined to invoke the enforce_nil method before the model is saved. The enforce_nil method sets the specified attributes to nil if their current value is "blank", meaning it is nil, an empty string, or an empty array.</p>
+<p>Here's an example of how the EnforceNil module could be used in a model:</p>
+<p>Copy code
+class User &lt; ApplicationRecord
+  include EnforceNil</p>
+<p>enforce_nil :phone_number, :email
+end
+This would add a before_save callback to the User model which invokes the enforce_nil method. The phone_number and email attributes of the User model would be set to nil if they are blank when the model is saved to the database.</p>
 
 
 

@@ -1664,33 +1664,780 @@ member_request_types = business_unit.member_request_types
 <pre><code>update.questions
 </code></pre>
 <h1 id="category"><strong>Category</strong></h1>
+<p>It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the update, stored as a bigint</p>
+<p><strong>category_id</strong>: a foreign key referencing the category that this update is for</p>
+<p><strong>question_ids</strong>: an array of integers representing the question IDs that are associated with this update</p>
+<p><strong>created_at</strong>: a timestamp for when the update was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the update was last updated</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :category</strong>: indicates that each category update belongs to a single category</p>
+<p>It has the following custom methods:</p>
+<p><strong>title</strong>: returns the title of the category that this update is for. If the category's title is "general" and it has a parent, the parent's title is returned instead.</p>
+<p><strong>photo</strong>: returns the photo of the category that this update is for.
+    questions: returns a collection of Question objects that are associated with this update.</p>
+<p>Here is an example of how the CategoryUpdate model could be used:</p>
+<p>Find a category update by its ID</p>
+<pre><code>update = CategoryUpdate.find(1)
+</code></pre>
+<p>Access the title of the update's category</p>
+<pre><code>puts update.title
+</code></pre>
+<p>Access the questions associated with the update</p>
+<pre><code>questions = update.questions
+</code></pre>
 <h1 id="checkin"><strong>CheckIn</strong></h1>
+<p>The CheckIn model represents a check-in by a user to a branch in the application. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the check-in, stored as a bigint</p>
+<p><strong>user_id</strong>: a foreign key referencing the user who checked in</p>
+<p><strong>branch_id</strong>: a foreign key referencing the branch that the user checked in to</p>
+<p><strong>arrival_date</strong>: a date representing the date on which the user checked in</p>
+<p><strong>arrival_time_start</strong>: a time representing the start time of the user's check-in</p>
+<p><strong>arrival_time_end</strong>: a time representing the end time of the user's check-in</p>
+<p><strong>created_at</strong>: a timestamp for when the check-in was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the check-in was last updated</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :user, touch: true</strong>: indicates that each check-in belongs to a single user, and the updated_at timestamp of the user will be updated whenever this check-in is saved.
+belongs_to :branch: indicates that each check-in belongs to a single branch
+It has the following custom methods:</p>
+<p><strong>earliest</strong>: a scope that orders check-ins by their arrival_date in ascending order.
+future: a scope that filters check-ins to only include those with an arrival_date in the future.
+for_branch: a scope that filters check-ins to only include those for a particular branch.</p>
+<p>Here is an example of how the CheckIn model could be used:</p>
+<p>Copy code
+Find a user by their ID</p>
+<pre><code>user = User.find(1)
+</code></pre>
+<p>Find a branch by its ID</p>
+<pre><code>branch = Branch.find(1)
+</code></pre>
+<p>Create a new check-in for the user at the branch</p>
+<pre><code>check_in = CheckIn.new(user: user, branch: branch, arrival_date: Date.today, arrival_time_start: Time.now)
+</code></pre>
+<p>Save the check-in</p>
+<pre><code>check_in.save
+</code></pre>
+<p>Find all future check-ins for a particular branch</p>
+<pre><code>future_check_ins = CheckIn.for_branch(branch).future
+</code></pre>
 <h1 id="city"><strong>City</strong></h1>
+<p>The City model represents a city in the application. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the city, stored as a bigint</p>
+<p><strong>name</strong>: the name of the city</p>
+<p><strong>created_at</strong>: a timestamp for when the city was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the city was last updated</p>
+<p><strong>status</strong>: a string representing the status of the city, with possible values of "enabled", "disabled", and "coming_soon"</p>
+<p>It has the following relationships:</p>
+<p><strong>HasPhoto</strong>: indicates that the City model includes the HasPhoto module, which provides it with the ability to have a photo associated with it.
+It has the following custom methods:</p>
+<p><strong>to_s</strong>: returns the name of the city as a string.</p>
+<p>It also has the following scopes:</p>
+<p><strong>default_scope</strong>: orders cities by their name in ascending order.</p>
+<p><strong>not_disabled</strong>: filters cities to only include those with a status of "enabled" or "coming_soon".
+Here is an example of how the City model could be used:</p>
+<p>Find a city by its ID</p>
+<pre><code>city = City.find(1)
+</code></pre>
+<p>Access the name of the city</p>
+<pre><code>puts city.name
+</code></pre>
+<p>Update the status of the city</p>
+<pre><code>city.status = "disabled"
+city.save
+</code></pre>
+<p>Find all cities that are not disabled</p>
+<pre><code>cities = City.not_disabled
+</code></pre>
 <h1 id="contentcategory"><strong>ContentCategory</strong></h1>
+<p>The ContentCategory model represents a category for organizing content (e.g. articles, videos) in the application. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the content category, stored as a bigint</p>
+<p><strong>name</strong>: the name of the content category</p>
+<p><strong>created_at</strong>: a timestamp for when the content category was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the content category was last updated</p>
+<p>It has the following relationships:</p>
+<p><strong>has_many </strong>:article_content_categories, dependent: :destroy: indicates that each content category can have many associations with articles through the article_content_categories join table, and these associations will be destroyed if the content category is deleted.</p>
+<p><strong>has_many :articles, through: :article_content_categories</strong>: indicates that a content category can have many articles associated with it through the article_content_categories join table.</p>
+<p><strong>has_many :video_content_categories, dependent: :destroy</strong>: indicates that each content category can have many associations with videos through the video_content_categories join table, and these associations will be destroyed if the content category is deleted.</p>
+<p><strong>has_many :videos, through: :video_content_categories</strong>: indicates that a content category can have many videos associated with it through the video_content_categories join table.</p>
+<p>Here is an example of how the ContentCategory model could be used:</p>
+<p>Copy code
+Find a content category by its ID</p>
+<pre><code>category = ContentCategory.find(1)
+</code></pre>
+<p>Access the name of the category</p>
+<pre><code>puts category.name
+</code></pre>
+<p>Find all articles in the category</p>
+<pre><code>articles = category.articles
+</code></pre>
+<p>Find all videos in the category</p>
+<pre><code>videos = category.videos
+</code></pre>
+<p>Create a new article and associate it with the category</p>
+<pre><code>article = Article.new(title: "New Article")
+article.content_categories &lt;&lt; category
+article.save
+</code></pre>
 <h1 id="dataimport"><strong>DataImport</strong></h1>
+<p>The DataImport model represents an import of data from a file (e.g. a spreadsheet) in the application. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the data import, stored as a bigint</p>
+<p><strong>file</strong>: a string representing the file that was imported, stored as a file on the filesystem</p>
+<p><strong>status</strong>: a string representing the status of the data import, with possible values of "new", "running", "finished", and "failed"</p>
+<p><strong>log</strong>: a text field that stores log messages for the data import</p>
+<p><strong>finished_at</strong>: a timestamp for when the data import finished</p>
+<p><strong>created_at</strong>: a timestamp for when the data import was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the data import was last updated</p>
+<p><strong>options</strong>: a JSONB field that stores options for the data import, including whether to import categories, questions, locking conditions, and visibility conditions</p>
+<p>The DataImport model has the following relationships:</p>
+<p><strong>mount_uploader :file, FileUploader</strong>: indicates that the file attribute is a file that is managed by the FileUploader uploader.</p>
+<p>It has the following custom methods:</p>
+<p><strong>filename</strong>: returns the filename of the imported file as a string.</p>
+<p><strong>import_all</strong>: performs the data import, updating the status of the data import to "running" and setting it to "finished" or "failed" upon completion. This method also broadcasts the status of the data import to a channel on the Action Cable server.</p>
+<p><strong>import_categories</strong>: imports categories from the data import file.</p>
+<p><strong>import_questions</strong>: imports questions from the data import file.</p>
+<p><strong>update_visibility_conditions</strong>: updates visibility conditions for questions in the data import file.</p>
+<p><strong>update_locking_conditions</strong>: updates locking conditions for questions in the data import file.</p>
+<p><strong>categories_spreadsheet</strong>: returns a Spreadsheet object for the categories sheet in the data import file.</p>
+<p><strong>questions_spreadsheet</strong>: returns a Spreadsheet object for the questions sheet in the data import file.</p>
+<p><strong>visibility_conditions_spreadsheet</strong>: returns a Spreadsheet object for the visibility conditions sheet in the data import file.</p>
+<p><strong>locking_conditions_spreadsheet</strong>: returns a Spreadsheet object for the locking conditions sheet in the data import file.</p>
+<p>Here is an example of how the DataImport model could be used:</p>
+<p>Create a new data import with a file and options</p>
+<pre><code>data_import = DataImport.new(file: params[:file], options: { categories: true, questions: true })
+</code></pre>
+<p>Save the data import and perform the import</p>
+<pre><code>if data_import.save
+    data_import.import_all
+end
+</code></pre>
+<p>Find all data imports ordered by the most recently created</p>
+<pre><code>data_imports = DataImport.all
+</code></pre>
 <h1 id="device"><strong>Device</strong></h1>
+<p>The Device model represents a device that a user has used to sign in to the application. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the device, stored as a bigint</p>
+<p><strong>user_id</strong>: a foreign key for the user associated with the device</p>
+<p><strong>platform</strong>: a string representing the platform of the device (e.g. "ios" or "android")</p>
+<p><strong>token</strong>: a string representing a unique token for the device</p>
+<p><strong>created_at</strong>: a timestamp for when the device was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the device was last updated</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :user</strong>: indicates that each device belongs to a single user.
+It has the following custom methods:</p>
+<p><strong>ios?</strong>: returns true if the platform of the device is "ios", false otherwise.
+android?: returns true if the platform of the device is "android", false otherwise.
+Here is an example of how the Device model could be used:</p>
+<p>Copy code
+Find a device by its token</p>
+<pre><code>device = Device.find_by(token: params[:token])
+</code></pre>
+<p>Check if the device is an iOS device</p>
+<pre><code>if device.ios?
+# Do something
+end
+</code></pre>
+<p>Create a new device for a user</p>
+<pre><code>device = Device.new(user: current_user, platform: params[:platform], token: params[:token])
+</code></pre>
+<p>Save the device</p>
+<pre><code>device.save
+</code></pre>
 <h1 id="feed"><strong>Feed</strong></h1>
+<p>The Feed model is a serializable model that represents a feed of content for a user. It has the following attributes:</p>
+<p><strong>articles</strong>: an array of articles to be included in the feed</p>
+<p><strong>interactions</strong>: an array of interactions to be included in the feed</p>
+<p><strong>category_updates</strong>: an array of category updates to be included in the feed</p>
+<p><strong>videos</strong>: an array of videos to be included in the feed</p>
+<p>It does not have any relationships or custom methods.</p>
+<p>Here is an example of how the Feed model could be used:</p>
+<p>Initialize a new feed with arrays of articles, interactions, category updates, and videos</p>
+<pre><code>feed = Feed.new(articles: articles, interactions: interactions, category_updates: category_updates, videos: videos)
+</code></pre>
+<p>Render the feed as JSON using a serializer</p>
+<pre><code>render json: feed
+</code></pre>
 <h1 id="ignore"><strong>Ignore</strong></h1>
+<p>The Ignore model represents a relationship between a user and a category where the user has indicated that they do not want to receive notifications for updates to the category. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the ignore relationship, stored as a bigint</p>
+<p><strong>user_id</strong>: a foreign key for the user associated with the ignore relationship</p>
+<p><strong>category_id</strong>: a foreign key for the category associated with the ignore relationship</p>
+<p><strong>created_at</strong>: a timestamp for when the ignore relationship was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the ignore relationship was last updated</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :user</strong>: indicates that each ignore relationship belongs to a single user.</p>
+<p><strong>belongs_to :category</strong>: indicates that each ignore relationship belongs to a single category.
+It does not have any custom methods.</p>
+<p>Here is an example of how the Ignore model could be used:</p>
+<p>Create a new ignore relationship between a user and a category</p>
+<pre><code>ignore = Ignore.new(user: current_user, category: category)
+</code></pre>
+<p>Save the ignore relationship</p>
+<pre><code>ignore.save
+</code></pre>
+<p>Find all the categories that a user is ignoring</p>
+<pre><code>ignored_categories = Ignore.where(user: current_user).includes(:category)
+</code></pre>
 <h1 id="interaction"><strong>Interaction</strong></h1>
+<p>The Interaction model represents a user interaction with a staff member, branch, or category. These interactions can be of different types, such as a recommendation or booking a taxi.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique identifier for the interaction
+<strong>user_id</strong>: the ID of the user who is interacting
+<strong>staff_member_id</strong>: the ID of the staff member involved in the interaction
+<strong>branch_id</strong>: the ID of the branch involved in the interaction
+<strong>category_id</strong>: the ID of the category involved in the interaction
+<strong>description</strong>: a description of the interaction
+<strong>created_at</strong>: the date and time that the interaction was created
+<strong>updated_at</strong>: the date and time that the interaction was last updated
+<strong>type</strong>: the type of interaction</p>
+<p>Relationships:</p>
+<p><strong>belongs_to :user</strong>: the interaction belongs to a user
+<strong>belongs_to :staff_member</strong>: the interaction may involve a staff member
+<strong>belongs_to :branch</strong>: the interaction may involve a branch
+<strong>belongs_to :category</strong>: the interaction may involve a category</p>
+<p>Custom methods:</p>
+<p><strong>mood?</strong>: returns a boolean indicating whether the interaction is a mood type</p>
+<p><strong>partner_type?</strong>: returns a boolean indicating whether the interaction is a partner type (i.e. a type that involves a staff member or branch)</p>
+<p>Examples of usage:</p>
+<p>Retrieving a list of interactions for a particular user:</p>
+<pre><code>Interaction.where(user_id: user.id)
+</code></pre>
+<p>Retrieving a list of mood interactions for today: </p>
+<pre><code>Interaction.where(type: 'mood').for_today
+</code></pre>
 <h1 id="memberrequestmessage"><strong>MemberRequestMessage</strong></h1>
+<p>The MemberRequestMessage model represents a message sent within a MemberRequest conversation between a staff member and a user.</p>
+<p>Attributes:</p>
+<p><strong>id (integer)</strong>: The unique identifier for the message.</p>
+<p><strong>body (text)</strong>: The content of the message.</p>
+<p><strong>status (string)</strong>: The current status of the message, which can be pending, sent, or read.</p>
+<p><strong>member_request_id (integer)</strong>: The identifier for the MemberRequest conversation to which the message belongs.</p>
+<p><strong>messageable_id (integer)</strong>: The identifier for the user or staff member who sent the message.</p>
+<p><strong>messageable_type (string)</strong>: The type of the sender, either User or StaffMember.</p>
+<p><strong>created_at (datetime)</strong>: The timestamp when the message was created.</p>
+<p><strong>updated_at (datetime)</strong>: The timestamp when the message was last updated.</p>
+<p>Relationships:</p>
+<p><strong>belongs_to member_request</strong>: The MemberRequest conversation to which the message belongs.</p>
+<p><strong>belongs_to messageable (polymorphic)</strong>: The user or staff member who sent the message.</p>
+<p>Custom methods:</p>
+<p><strong>mark_as_read</strong>: Changes the status attribute to read.</p>
+<p><strong>mark_as_unread</strong>: Changes the status attribute to pending.</p>
+<p><strong>mark_as_sent</strong>: Changes the status attribute to sent.</p>
+<p><strong>read?</strong>: Returns a boolean indicating whether the status attribute is read.</p>
+<p>Examples of usage:</p>
+<p>Create a new message:</p>
+<pre><code>mr = MemberRequest.first
+message = MemberRequestMessage.new(body: 'Hello, how are you doing?', member_request: mr, messageable: staff_member)
+message.save
+</code></pre>
+<p>Mark a message as read:</p>
+<pre><code>message = MemberRequestMessage.first
+message.mark_as_read!
+</code></pre>
+<p>Check if a message has been read:</p>
+<pre><code>message = MemberRequestMessage.first
+message.read?
+</code></pre>
+<p>Get all unread messages sent by staff members:</p>
+<pre><code>MemberRequestMessage.from_staff_member.unread
+</code></pre>
 <h1 id="memberrequesttypeassignment"><strong>MemberRequestTypeAssignment</strong></h1>
+<p>The MemberRequestTypeAssignment model represents a many-to-many relationship between Role and MemberRequestType models. It allows the assignment of one or more roles to a member request type, indicating which staff members are responsible for handling member requests of that type.</p>
+<p>Attributes:</p>
+<p><strong>id (integer)</strong>: the primary key for the model.</p>
+<p><strong>role_id (integer)</strong>: the foreign key for the Role model, indicating the role being assigned to the member request type.</p>
+<p><strong>member_request_type_id (integer)</strong>: the foreign key for the MemberRequestType model, indicating the member request type being assigned to the role.</p>
+<p><strong>created_at (datetime)</strong>: the timestamp for when the record was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp for when the record was last updated.</p>
+<p>Relationships:</p>
+<p><strong>belongs_to</strong>: the MemberRequestTypeAssignment model belongs to both the Role and MemberRequestType models.
+Custom methods:</p>
+<p>None.
+Examples of usage:</p>
+<p>Copy code
+Assign the 'customer_service' role to the 'booking' member request type</p>
+<pre><code>member_request_type = MemberRequestType.find_by(name: 'booking')
+role = Role.find_by(name: 'customer_service')
+assignment = MemberRequestTypeAssignment.create(member_request_type: member_request_type, role: role)
+</code></pre>
+<p>Get the member request types assigned to the 'customer_service' role</p>
+<pre><code>role = Role.find_by(name: 'customer_service')
+member_request_types = role.member_request_types
+</code></pre>
 <h1 id="memberrequesttype"><strong>MemberRequestType</strong></h1>
+<p>The MemberRequestType model represents a type of request that can be made by a member (user) to staff members in an organisation.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique identifier for the request type (integer, primary key)</p>
+<p><strong>name</strong>: the name of the request type (string)</p>
+<p><strong>business_unit_id</strong>: the unique identifier of the business unit to which the request type belongs (integer)</p>
+<p><strong>created_at</strong>: the date and time at which the request type was created (datetime)</p>
+<p><strong>updated_at</strong>: the date and time at which the request type was last updated (datetime)</p>
+<p><strong>archived_at</strong>: the date and time at which the request type was archived (datetime)</p>
+<p>Relationships:</p>
+<p><strong>business_unit</strong>: a belongs-to relationship with the BusinessUnit model. A request type belongs to a single business unit.</p>
+<p><strong>organisation</strong>: a has-one-through relationship with the Organisation model. A request type has a single organisation through its business unit.</p>
+<p><strong>member_request_type_assignments</strong>: a has-many relationship with the MemberRequestTypeAssignment model. A request type has many type assignments.</p>
+<p><strong>roles</strong>: a has-many-through relationship with the Role model. A request type has many roles through its type assignments.</p>
+<p><strong>staff_members</strong>: a has-many-through relationship with the StaffMember model. A request type has many staff members through its roles.</p>
+<p>Custom methods:</p>
+<p><strong>acts_as_paranoid</strong>: this is a method provided by the ActsAsParanoid gem which allows the request type to be "soft deleted" by setting the archived_at attribute to the current date and time. This allows the request type to be restored if necessary.</p>
+<p>Examples of usage:</p>
+<p>Creating a new request type:</p>
+<pre><code>request_type = MemberRequestType.new(name: 'Booking assistance')
+request_type.business_unit = BusinessUnit.first
+request_type.save
+</code></pre>
 <h1 id="memberrequest"><strong>MemberRequest</strong></h1>
+<p>Description: This model represents a request made by a member (user) to the staff of a branch. It has a type (e.g. booking, service request, etc.) and a status (open, pending, closed). The request can be composed of multiple messages exchanged between the member and the staff.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique identifier for the request (integer, primary key)</p>
+<p><strong>user_id</strong>: the id of the member who made the request (integer, foreign key to the users table)</p>
+<p><strong>branch_id</strong>: the id of the branch where the request was made (integer, foreign key to the branches table)
+member_request_type_id: the id of the type of request (integer, foreign key to the member_request_types table)</p>
+<p><strong>status</strong>: the current status of the request (string, can be "open", "pending", or "closed")</p>
+<p><strong>created_at</strong>: the timestamp for when the request was created (datetime)</p>
+<p><strong>updated_at</strong>: the timestamp for when the request was last updated (datetime)</p>
+<p><strong>last_message_sent_at</strong>: the timestamp for when the last message was sent for this request (datetime)</p>
+<p>Relationships:</p>
+<p><strong>belongs_to :user</strong></p>
+<p><strong>belongs_to :branch</strong></p>
+<p><strong>belongs_to :member_request_type</strong></p>
+<p><strong>has_many :member_request_messages, dependent: :destroy</strong></p>
+<p>Custom methods:</p>
+<p><strong>mark_as_unread</strong>: marks the last message from the member as unread.</p>
+<p>Examples of usage:</p>
+<p>Create a new member request:
+Copy code</p>
+<pre><code>request = MemberRequest.new(user_id: 1, branch_id: 2, member_request_type_id: 3, status: "open")
+request.member_request_messages.build(body: "Hi, I would like to book a table for two on Friday at 7pm.", messageable_type: "User")
+request.save
+</code></pre>
+<p>Find all open member requests for a specific branch:
+Copy code</p>
+<pre><code>requests = MemberRequest.for_branch(2).in_status("open")
+</code></pre>
+<p>Find all member requests for a specific member:
+Copy code</p>
+<pre><code>requests = MemberRequest.for_member(1)
+</code></pre>
+<p>Find all member requests with a specific message:
+Copy code</p>
+<pre><code>requests = MemberRequest.with_message(5)
+</code></pre>
 <h1 id="notification"><strong>Notification</strong></h1>
+<p>The Notification model represents a notification that can be sent to a user. It can be associated with a specific object, such as a Branch or MemberRequestMessage, through a polymorphic association.</p>
+<p>Attributes:</p>
+<p><strong>user_id</strong>: The ID of the user who will receive the notification.</p>
+<p><strong>type</strong>: The type of notification, represented as a string.</p>
+<p><strong>response</strong>: A JSONb field that can store a response from the user to the notification.</p>
+<p><strong>object_type</strong>: The type of object that the notification is associated with, stored as a string.</p>
+<p><strong>object_id</strong>: The ID of the object that the notification is associated with.</p>
+<p><strong>created_at</strong>: The timestamp when the notification was created.</p>
+<p><strong>updated_at</strong>: The timestamp when the notification was last updated.</p>
+<p><strong>read_at</strong>: The timestamp when the notification was marked as read by the user.</p>
+<p><strong>responded_at</strong>: The timestamp when the user responded to the notification.</p>
+<p>Relationships:</p>
+<p><strong>belongs_to :user</strong>: The user who will receive the notification.
+belongs_to :object, polymorphic: true: The object that the notification is associated with.
+Custom methods:</p>
+<p><strong>human_type</strong>: Returns the type of the notification in a human-readable format (e.g. "new_message" for Notification::NewMessage).</p>
+<p><strong>mark_as_read</strong>: Marks the notification as read by updating the read_at attribute.
+self.mark_all_read: Marks all notifications as read for the current user by updating the read_at attribute.</p>
+<p><strong>name</strong>: Returns the name of the object that the notification is associated with, or the name of the branch if the object is a MemberRequestMessage.</p>
+<p>Examples of usage:</p>
+<p>Copy code
+Create a new notification</p>
+<pre><code>notification = Notification::NewMessage.create!(user: user, object: member_request_message)
+</code></pre>
+<p>Mark a notification as read</p>
+<pre><code>notification.mark_as_read
+</code></pre>
+<p>Mark all notifications as read for a user</p>
+<pre><code>Notification.where(user: user).mark_all_read
+</code></pre>
+<p>Find unread notifications for a user</p>
+<pre><code>unread_notifications = Notification.where(user: user).unread
+</code></pre>
 <h1 id="organisation"><strong>Organisation</strong></h1>
+<p>The Organisation model represents a company or organization in the system. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the organisation, stored as a big integer and generated automatically by the database.</p>
+<p><strong>name</strong>: a string containing the name of the organization. This attribute is required.</p>
+<p><strong>about</strong>: a text field containing information about the organization.</p>
+<p><strong>archived_at</strong>: a datetime field containing the date and time at which the organization was archived. If 
+the organization has not been archived, this field is nil.</p>
+<p>The Organisation model has the following relationships:</p>
+<p><strong>address</strong>: a one-to-one relationship with the Address model, representing the address of the organization.</p>
+<p><strong>photo</strong>: a one-to-one relationship with the Photo model, representing a photo of the organization.</p>
+<p><strong>staff_members</strong>: a one-to-many relationship with the StaffMember model, representing the staff members of the organization.</p>
+<p><strong>branch_managers</strong>: a one-to-many relationship with the BranchManager model, representing the branch managers of the organization.</p>
+<p><strong>admins</strong>: a one-to-many relationship with the Admin model, representing the administrators of the organization.</p>
+<p><strong>business_units</strong>: a one-to-many relationship with the BusinessUnit model, representing the business units within the organization.</p>
+<p><strong>branches</strong>: a many-to-many relationship with the Branch model, through the BusinessUnit model, representing the branches that belong to the organization.</p>
+<p><strong>roles</strong>: a many-to-many relationship with the Role model, through the BusinessUnit model, representing the roles that exist within the organization.</p>
+<p><strong>videos</strong>: a one-to-many relationship with the Video model, representing the videos associated with the organization.</p>
+<p>The Organisation model has the following custom methods:</p>
+<p><strong>reject_photo?(attributes)</strong>: a private method used to determine whether a photo should be rejected when creating or updating an organization. It returns true if the image attribute of the attributes parameter is blank, and false otherwise.</p>
+<p>An example of usage for the Organisation model could be:</p>
+<p>Copy code
+Create a new organization</p>
+<pre><code>org = Organisation.new(name: "My Organization")
+</code></pre>
 <h1 id="partnercategory"><strong>PartnerCategory</strong></h1>
+<p>The PartnerCategory model represents categories for partners in the system. A partner can belong to multiple categories and each category can have multiple partners.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique identifier for the partner category (integer, primary key)</p>
+<p><strong>title</strong>: the name of the partner category (string)</p>
+<p><strong>position</strong>: the position of the partner category in a list (integer)</p>
+<p><strong>created_at</strong>: the timestamp when the partner category was created (datetime)</p>
+<p><strong>updated_at</strong>: the timestamp when the partner category was last updated (datetime)</p>
+<p>Relationships:</p>
+<p><strong>branch_categorisations</strong>: a has-many relationship with the BranchCategorisation model, representing the categories a branch belongs to (a branch can belong to multiple categories and a category can have multiple branches)</p>
+<p><strong>branches</strong>: a has-many-through relationship with the Branch model, representing the branches that belong to the partner category</p>
+<p>Custom methods:</p>
+<p><strong>to_s</strong>: returns the title of the partner category as a string
+Examples of usage:</p>
+<p>Creating a new partner category:
+Copy code</p>
+<pre><code>category = PartnerCategory.new(title: 'Technology')
+category.save
+</code></pre>
+<p>Adding a branch to a partner category:
+Copy code</p>
+<pre><code>category = PartnerCategory.find(1)
+branch = Branch.find(2)
+category.branches &lt;&lt; branch
+</code></pre>
+<p>Displaying the title of a partner category:
+Copy code</p>
+<pre><code>category = PartnerCategory.find(1)
+puts category.to_s # outputs the title of the partner category
+</code></pre>
 <h1 id="personality"><strong>Personality</strong></h1>
+<p>The Personality model represents the personality of a user. It is composed of three sub-models: Lifestyle, Food, and Wine.</p>
+<p>Attributes: None.</p>
+<p>Relationships: The Personality model has three sub-models: Lifestyle, Food, and Wine. Each of these sub-models has a one-to-one relationship with the Personality model.</p>
+<p>Custom Methods:</p>
+<p>initialize(user): Initializes a new instance of the Personality model with a given user.
+result: Returns a hash containing the results of the Lifestyle, Food, and Wine sub-models.</p>
+<p>Examples of usage:</p>
+<p>Copy code</p>
+<pre><code>user = User.find(1)
+personality = Personality.new(user)
+results = personality.result
+</code></pre>
 <h1 id="photo"><strong>Photo</strong></h1>
+<p>The Photo model represents a photo that belongs to an owner object through polymorphic association. It has the following attributes:</p>
+<p><strong>id</strong>: a unique integer identifier for the photo, generated by the database</p>
+<p><strong>owner_id</strong>: an integer representing the ID of the owner object that this photo belongs to</p>
+<p><strong>owner_type</strong>: a string representing the type of the owner object that this photo belongs to (e.g. "Branch", "User")</p>
+<p><strong>image</strong>: a string representing the location of the photo file on the filesystem or in a file storage service (e.g. Amazon S3)</p>
+<p><strong>created_at</strong>: a datetime representing the time when the photo was created</p>
+<p><strong>updated_at</strong>: a datetime representing the time when the photo was last updated</p>
+<p><strong>photo_type</strong>: a string representing the type of the photo (e.g. "logo", "cover photo")</p>
+<p>The Photo model also has the following relationships:</p>
+<p><strong>belongs_to :owner, polymorphic: true, touch: true</strong>: this indicates that a photo belongs to an owner object, and the owner object can be any type of object (specified by the owner_type attribute). The touch: true option tells Rails to update the updated_at timestamp of the owner object when the photo is updated.</p>
+<p>The Photo model has the following custom methods:</p>
+<p><strong>safe_recreate_versions!</strong>: this method is used to recreate the different versions (resized versions) of the photo file. It first retrieves the original file from the cache, then recreates the versions and saves the changes to the model.</p>
+<p><strong>preview_data</strong>: this method returns a base64-encoded version of the photo file's preview version, suitable for use in a data URI. It uses the Rails.cache to store the result and avoid recalculating it every time it is called.</p>
+<p>An example of usage for the Photo model might be:</p>
+<pre><code># Create a new photo for a branch object
+branch = Branch.first
+photo = Photo.new(owner: branch, image: params[:image])
+if photo.save
+</code></pre>
 <h1 id="preferencegroup"><strong>PreferenceGroup</strong></h1>
+<p>The PreferenceGroup model represents a group of questions that are related to each other. It has the following attributes:</p>
+<p>id: a unique identifier for the preference group (integer, primary key).
+title: a string representing the title of the preference group.
+question_ids: an array of integers representing the ids of the questions that belong to the preference group.
+created_at: a datetime representing when the preference group was created.
+updated_at: a datetime representing the last time the preference group was updated.
+It has the following relationships:</p>
+<p>has_many :role_preference_group_assignments: this indicates that a preference group can have many assignments to roles.
+It has the following custom methods:</p>
+<p>question_ids=: this method is used to set the question_ids attribute, and it removes any blank values from the array of new ids before saving them.
+questions: this method returns a collection of Question objects that belong to the preference group, based on the question_ids attribute.
+An example of usage could be:</p>
+<p>Copy code
+    # Find the preference group with id 1
+    pg = PreferenceGroup.find(1)</p>
+<pre><code># Display the title of the preference group
+puts pg.title
+# =&gt; "Food Preferences"
+
+# Display the questions that belong to the preference group
+pg.questions.each do |question|
+puts question.text
+end
+# =&gt; "What is your favourite type of cuisine?"
+# =&gt; "Do you have any dietary restrictions?"
+# =&gt; "Do you have any food allergies?"
+</code></pre>
 <h1 id="profilerequest"><strong>ProfileRequest</strong></h1>
+<p>The ProfileRequest model represents a request made by a user for access to a branch's profile page. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the request</p>
+<p><strong>branch_id</strong>: the ID of the branch that the user is requesting access to</p>
+<p><strong>user_id</strong>: the ID of the user making the request</p>
+<p><strong>created_at</strong>: a timestamp for when the request was created</p>
+<p><strong>updated_at</strong>: a timestamp for when the request was last updated</p>
+<p>It has the following relationships:</p>
+<p>belongs_to :branch: indicates that each ProfileRequest belongs to a single Branch
+belongs_to :user: indicates that each ProfileRequest belongs to a single User
+It does not have any custom methods or examples of usage.</p>
 <h1 id="question"><strong>Question</strong></h1>
+<p>The Question model represents a question that can be asked to a user. It has various attributes such as title, kind, and locking_conditions that define the question and its behavior. The Question model also has relationships with other models such as Category, Photo, Answer, and UserAnswer.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>: a unique identifier for the question.</p>
+<p><strong>category_id (integer)</strong>: the id of the category that the question belongs to.</p>
+<p><strong>title (citext)</strong>: the title of the question.</p>
+<p><strong>kind (string)</strong>: the type of question, which can be one of the following values: 'option', 'unordered_list', 'ordered_list', 'boolean', 'number', 'number_range', 'temperature', 'temperature_range', 'text', 'time', 'time_range'.</p>
+<p><strong>created_at (datetime)</strong>: the timestamp when the question was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp when the question was last updated.</p>
+<p><strong>locking_conditions (jsonb)</strong>: a JSON object that defines the conditions under which the question should be locked.</p>
+<p><strong>intro (boolean)</strong>: a flag indicating whether the question is an introduction question.</p>
+<p><strong>allows_note (boolean)</strong>: a flag indicating whether the question allows the user to add a note.</p>
+<p><strong>note_title (string)</strong>: the title of the note that the user can add to the question.</p>
+<p><strong>processed_at (datetime)</strong>: the timestamp when the question was processed.</p>
+<p><strong>text_style (string)</strong>: the style of the text for the question. Can be one of the following values: 'dark', 'light', 'dark-gold', 'light-gold'.</p>
+<p><strong>blur_background (boolean)</strong>: a flag indicating whether the background should be blurred for the question.
+    background_overlay (boolean): a flag indicating whether there should be an overlay on the background for the question.</p>
+<p>Relationships</p>
+<p><strong>category (belongs_to)</strong>: the category that the question belongs to.</p>
+<p><strong>photo (has_one)</strong>: the photo that is associated with the question.</p>
+<p><strong>answers (has_many)</strong>: the answers that are available for the question.</p>
+<p><strong>user_answers (has_many)</strong>: the answers that have been given by users for the question.</p>
+<p>Custom Methods</p>
+<p><strong>enumerable_kind?</strong>: returns a boolean indicating whether the question is one of the following types: 'option', 'unordered_list', 'ordered_list', 'boolean', 'number', 'number_range', 'temperature', 'temperature_range'.</p>
+<p><strong>diverse_kind?</strong>: returns a boolean indicating whether the question is one of the following types: 'text', 'time', 'time_range'.</p>
+<p>Examples of Usage</p>
+<p>Here are some examples of how the Question model can be used:</p>
+<p>To create a new question:
+Copy code</p>
+<pre><code>question = Question.new(title: 'What is your favorite color?', kind: 'option')
+question.save
+</code></pre>
+<p>To retrieve all the questions in a particular category:
+Copy code</p>
+<pre><code>category = Category.find_by(name: 'Personal')
+questions = Question.in_category(category)
+</code></pre>
 <h1 id="rating"><strong>Rating</strong></h1>
+<p>The Rating model represents a rating given by a user for a particular branch. It has various attributes such as value that define the rating, and relationships with other models such as Branch and User.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>: a unique identifier for the rating.</p>
+<p><strong>branch_id (bigint)</strong>: the id of the branch that the rating is for.</p>
+<p><strong>user_id (bigint)</strong>: the id of the user who gave the rating.</p>
+<p><strong>value (integer)</strong>: the value of the rating, which must be an integer between 1 and 5.</p>
+<p><strong>created_at (datetime)</strong>: the timestamp when the rating was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp when the rating was last updated.</p>
+<p>Relationships</p>
+<p><strong>branch (belongs_to)</strong>: the branch that the rating is for.</p>
+<p><strong>user (belongs_to)</strong>: the user who gave the rating.</p>
+<p>Custom Methods
+There are no custom methods defined in the Rating model.</p>
+<p>Examples of Usage
+Here are some examples of how the Rating model can be used:</p>
+<p>To create a new rating:
+Copy code</p>
+<pre><code>branch = Branch.find_by(name: 'My Branch')
+user = User.find_by(email: 'user@example.com')
+rating = Rating.new(branch: branch, user: user, value: 4)
+rating.save
+</code></pre>
+<p>To retrieve all the ratings for a particular branch:
+Copy code</p>
+<pre><code>branch = Branch.find_by(name: 'My Branch')
+ratings = Rating.where(branch: branch)
+</code></pre>
+<p>To retrieve the average rating value for a particular branch:
+Copy code</p>
+<pre><code>branch = Branch.find_by(name: 'My Branch')
+average_rating = Rating.where(branch: branch).average(:value)
+</code></pre>
 <h1 id="release"><strong>Release</strong></h1>
+<p>The Release model represents a release of data. It has various attributes such as file and status that define the release, and a relationship with the ReleaseFileUploader uploader.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>: a unique identifier for the release.</p>
+<p><strong>file (string)</strong>: the file that contains the data for the release.</p>
+<p><strong>status (string)</strong>: the status of the release, which can be one of the following values: 'queued', 'processing', 'complete'.</p>
+<p><strong>created_at (datetime)</strong>: the timestamp when the release was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp when the release was last updated.</p>
+<p>Relationships</p>
+<p><strong>file (mount_uploader)</strong>: the ReleaseFileUploader uploader that is used to handle the file for the release.</p>
+<p>Custom Methods</p>
+<p><strong>latest</strong>: returns the latest complete release.</p>
+<p><strong>latest_timestamp</strong>: returns the timestamp of the latest complete release.</p>
+<p><strong>latest_id</strong>: returns the id of the latest complete release.</p>
+<p><strong>latest?</strong>: returns a boolean indicating whether the release is the latest complete release.</p>
+<p><strong>queued?</strong>: returns a boolean indicating whether the release is in the 'queued' status.</p>
+<p><strong>processing?</strong>: returns a boolean indicating whether the release is in the 'processing' status.</p>
+<p><strong>complete?</strong>: returns a boolean indicating whether the release is in the 'complete' status.</p>
+<p><strong>process!</strong>: sets the status of the release to 'processing' and broadcasts the status change.</p>
+<p><strong>complete!</strong>: sets the status of the release to 'complete' and broadcasts the status change.</p>
+<p>Examples of Usage
+Here are some examples of how the Release model can be used:</p>
+<p>To create a new release:
+Copy code</p>
+<pre><code>release = Release.new(file: '/path/to/file.csv')
+release.save
+</code></pre>
+<p>To retrieve the latest complete release:
+Copy code</p>
+<pre><code>latest_release = Release.latest
+</code></pre>
+<p>To retrieve the timestamp of the latest complete release:
+Copy code</p>
+<pre><code>latest_timestamp = Release.latest_timestamp
+</code></pre>
+<p>To check if a particular release is the latest complete release:
+Copy code</p>
+<pre><code>release = Release.find(1)
+release.latest?
+</code></pre>
+<p>To set the status of a release to 'processing':
+Copy code</p>
+<pre><code>release = Release.find(1)
+release.process!
+</code></pre>
+<p>To set the status of a release to 'complete':
+Copy code</p>
+<pre><code>release = Release.find(1)
+release.complete!
+</code></pre>
 <h1 id="roleassignment"><strong>RoleAssignment</strong></h1>
+<p>The RoleAssignment model represents a role that has been assigned to a staff member. It has various attributes such as role_id and staff_member_id that define the assignment, and relationships with other models such as Role and StaffMember.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>: a unique identifier for the role assignment.</p>
+<p><strong>role_id (bigint)</strong>: the id of the role that has been assigned.</p>
+<p><strong>staff_member_id (bigint)</strong>: the id of the staff member who has been assigned the role.</p>
+<p><strong>archived_at (datetime)</strong>: the timestamp when the role assignment was archived.</p>
+<p><strong>created_at (datetime)</strong>: the timestamp when the role assignment was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp when the role assignment was last updated.</p>
+<p>Relationships</p>
+<p><strong>role (belongs_to)</strong>: the role that has been assigned.</p>
+<p><strong>staff_member (belongs_to)</strong>: the staff member who has been assigned the role.</p>
+<p>Custom Methods</p>
+<p>There are no custom methods defined in the RoleAssignment model.</p>
+<p>Examples of Usage
+Here are some examples of how the RoleAssignment model can be used:</p>
+<p>To create a new role assignment:
+Copy code</p>
+<pre><code>role = Role.find_by(name: 'Manager')
+staff_member = StaffMember.find_by(email: 'staff@example.com')
+role_assignment = RoleAssignment.new(role: role, staff_member: staff_member)
+role_assignment.save
+</code></pre>
+<p>To retrieve all the role assignments for a particular role:
+Copy code</p>
+<pre><code>role = Role.find_by(name: 'Manager')
+role_assignments = RoleAssignment.where(role: role)
+</code></pre>
+<p>To retrieve all the role assignments for a particular staff member:
+Copy code</p>
+<pre><code>staff_member = StaffMember.find_by(email: 'staff@example.com')
+role_assignments = RoleAssignment.where(staff_member: staff_member)
+</code></pre>
 <h1 id="rolepreferencegroupassignment"><strong>RolePreferenceGroupAssignment</strong></h1>
+<p>The RolePreferenceGroupAssignment model represents the assignment of a preference group to a role. It has various attributes such as role_id, preference_group_id, and position that define the assignment, and relationships with other models such as Role and PreferenceGroup.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>: a unique identifier for the role preference group assignment.</p>
+<p><strong>role_id (bigint)</strong>: the id of the role to which the preference group has been assigned.</p>
+<p><strong>preference_group_id (bigint)</strong>: the id of the preference group that has been assigned to the role.</p>
+<p><strong>position (integer)</strong>: the position of the preference group within the role.</p>
+<p><strong>column (string)</strong>: the column in which the preference group should be displayed (either 'left' or 'right').</p>
+<p><strong>created_at (datetime)</strong>: the timestamp when the role preference group assignment was created.</p>
+<p><strong>updated_at (datetime)</strong>: the timestamp when the role preference group assignment was last updated.</p>
+<p>Relationships</p>
+<p><strong>role (belongs_to)</strong>: the role to which the preference group has been assigned.</p>
+<p><strong>preference_group (belongs_to)</strong>: the preference group that has been assigned to the role.</p>
+<p>**Custom Methods</p>
+<p><strong>left</strong>: a scope that returns all the role preference group assignments with the column attribute set to 'left'.</p>
+<p><strong>right</strong>: a scope that returns all the role preference group assignments with the column attribute set to 'right'.</p>
+<p>Examples of Usage
+Here are some examples of how the RolePreferenceGroupAssignment model can be used:</p>
+<p>To create a new role preference group assignment:
+Copy code</p>
+<pre><code>role = Role.find_by(name: 'Manager')
+preference_group = PreferenceGroup.find_by(name: 'General')
+role_preference_group_assignment = RolePreferenceGroupAssignment.new(
+    role: role,
+    preference_group: preference_group,
+    position: 1,
+    column: 'left'
+    )
+role_preference_group
+</code></pre>
 <h1 id="role"><strong>Role</strong></h1>
+<p>The Role model represents a role within an organization. It has various attributes such as name, business_unit_id, and interactions that define the role, and relationships with other models such as BusinessUnit, StaffMember, and MemberRequestType.</p>
+<p>Attributes</p>
+<p><strong>id (bigint, primary key)</strong>:a unique identifier for the role.</p>
+<p><strong>name (string)</strong>:the name of the role.</p>
+<p><strong>created_at (datetime)</strong>:the timestamp when the role was created.</p>
+<p><strong>updated_at (datetime)</strong>:the timestamp when the role was last updated.</p>
+<p><strong>archived_at (datetime)</strong>:the timestamp when the role was archived (if applicable).</p>
+<p><strong>business_unit_id (bigint)</strong>:the id of the business unit to which the role belongs.</p>
+<p><strong>top_questions_data (jsonb)</strong>:a JSON object containing data about the top questions for the role.</p>
+<p><strong>interactions (string, array)</strong>:an array of strings representing the interactions that are allowed for the role.</p>
+<p>Relationships</p>
+<p><strong>business_unit (belongs_to)</strong>:the business unit to which the role belongs.</p>
+<p><strong>organisation (has_one, through: business_unit)</strong>:the organization to which the role belongs.</p>
+<p><strong>role_assignments (has_many)</strong>:the assignments of staff members to the role.</p>
+<p><strong>staff_members (has_many, through: role_assignments)</strong>:the staff members who have been assigned to the role.</p>
+<p><strong>member_request_type_assignments (has_many)</strong>:the assignments of member request types to the role.</p>
+<p><strong>member_request_types (has_many, through: member_request_type_assignments)</strong>:the member request types that have been assigned to the role.</p>
+<p>Custom Methods</p>
+<p>**top_questions_data=: a setter method that sets the top_questions_data attribute and converts the values to integers.</p>
+<p><strong>top_question(position)</strong>:a method that returns the id of the top question at the specified position.</p>
+<p><strong>top_question_ids</strong>: a method that returns an array of ids of the top questions for the role.</p>
+<p><strong>top_questions</strong>: a method that returns the top questions for the role as a collection of Question objects.</p>
 <h1 id="share"><strong>Share</strong></h1>
+<p>The Share model represents a user's request to share a Branch with another user. It has several attributes:</p>
+<p><strong>branch_id</strong>: an integer that represents the Branch being shared</p>
+<p><strong>user_id</strong>: an integer that represents the User making the request</p>
+<p><strong>status</strong>: a string that represents the current state of the share request (e.g. requested, authorised, revoked, denied)</p>
+<p><strong>via</strong>: a string that represents how the request was made (e.g. web, email, sms)</p>
+<p><strong>requested_at, authorised_at, denied_at, revoked_at</strong>: timestamps for when the respective actions were taken</p>
+<p>It has several relationships:</p>
+<p><strong>belongs_to :branch</strong>: a Share belongs to a Branch</p>
+<p><strong>belongs_to :user</strong>: a Share belongs to a User</p>
+<p>It has several custom methods:</p>
+<p><strong>request, authorise, deny, revoke</strong>: methods that update the status attribute and perform other actions depending on the transition (e.g. sending notifications, scheduling a reminder job). These methods are implemented using the aasm gem for state management.</p>
+<p><strong>revoke_all</strong>: a class method that updates the status attribute of all authorised shares to revoked</p>
+<p><strong>create_request_notification, authorise_notifications, deny_notifications, update_notifications, schedule_reminder, notify_graphql_share_change</strong>: private methods that perform actions such as creating notifications, scheduling jobs, and triggering GraphQL subscriptions.</p>
+<p>An example of usage:</p>
+<p>Copy code</p>
+<pre><code>share = Share.new(branch_id: 1, user_id: 2)
+share.request
+</code></pre>
+<p>This will create a new Share object with a status of requested, and trigger the create_request_notification method to send a notification to the user.</p>
 <h1 id="staffassignment"><strong>StaffAssignment</strong></h1>
+<p>The StaffAssignment model represents an association between a staff member and a target object. The target object can be any object that has an id column in the database and is polymorphic (can be associated with multiple types of objects).</p>
+<p>Attributes</p>
+<p>id: A big integer primary key.
+staff_member_id: An integer that represents the id of the associated staff member.
+target_type: A string that represents the class name of the associated target object.
+target_id: An integer that represents the id of the associated target object.
+created_at: A datetime that represents the time at which the staff assignment was created.
+updated_at: A datetime that represents the time at which the staff assignment was last updated.
+archived_at: A datetime that represents the time at which the staff assignment was archived.
+Relationships</p>
+<p>belongs_to :staff_member: The staff assignment belongs to a staff member.
+belongs_to :target, polymorphic: true: The staff assignment belongs to a target object that is polymorphic.
+Custom Methods</p>
+<p>None.</p>
+<p>Examples of Usage</p>
+<p>Suppose we have a Project model and a StaffMember model and we want to create a staff assignment that associates a staff member with a project. We could do so as follows:</p>
+<p>Copy code
+project = Project.find(1)
+staff_member = StaffMember.find(2)</p>
+<p>staff_assignment = StaffAssignment.new(
+  staff_member: staff_member,
+  target: project
+)</p>
+<p>if staff_assignment.save
+  puts "Staff assignment created successfully!"
+else
+  puts "Error creating staff assignment: #{staff_assignment.errors.full_messages.join(', ')}"
+end</p>
 <h1 id="staffmember"><strong>StaffMember</strong></h1>
 <h1 id="topquestion"><strong>TopQuestion</strong></h1>
 <h1 id="useranswer"><strong>UserAnswer</strong></h1>
