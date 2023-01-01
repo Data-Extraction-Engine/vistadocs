@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#food" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -476,9 +481,52 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          personality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         personality
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#food" class="md-nav__link">
+    Food
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifestyle" class="md-nav__link">
+    Lifestyle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wine" class="md-nav__link">
+    Wine
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -523,6 +571,35 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#food" class="md-nav__link">
+    Food
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifestyle" class="md-nav__link">
+    Lifestyle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wine" class="md-nav__link">
+    Wine
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -538,7 +615,47 @@
 
   <h1>personality</h1>
 
-
+<h2 id="food"><strong>Food</strong></h2>
+<p>The Personality::Food class represents the food personality of a user. It is used to determine the frequency at which a user eats out per month.</p>
+<p>Attributes:</p>
+<p><strong>@user</strong>: An instance of the User model representing the user whose food personality is being calculated.
+question: An instance of the Question model representing the question "How many times per month do you eat out?".</p>
+<p><strong>answer</strong>: An instance of the Answer model representing the answer provided by the user to the question "How many times per month do you eat out?".
+Relationships:</p>
+<p>The Personality::Food class has a one-to-many relationship with the User model through the @user attribute.
+The Personality::Food class has a one-to-many relationship with the Question model through the question attribute.
+The Personality::Food class has a one-to-many relationship with the Answer model through the answer attribute.</p>
+<p>Custom methods:</p>
+<p><strong>result</strong>: This method returns an integer value representing the user's food personality based on their answer to the question "How many times per month do you eat out?".
+Examples of usage:</p>
+<p>To determine the food personality of a user:</p>
+<pre><code>user = User.find(1)
+food_personality = Personality::Food.new(user)
+food_personality_result = food_personality.result
+</code></pre>
+<p>To determine the food personality of all users:</p>
+<pre><code>users = User.all
+food_personalities = users.map do |user|
+Personality::Food.new(user)
+end
+</code></pre>
+<p>food_personality_results = food_personalities.map(&amp;:result)</p>
+<h2 id="lifestyle"><strong>Lifestyle</strong></h2>
+<p>The Personality::Lifestyle class is a model that represents a user's lifestyle as determined by their answers to a questionnaire. It has a result method that returns an integer representing the user's lifestyle on a scale of 1 to 4, with 1 being the most economical and 4 being the most extravagant. The result method determines the user's lifestyle by looking up the answer to a specific question (whose title is stored in the constant TITLE) and returning a value based on the answer's values attribute. The question and answer methods are private and are used to retrieve the relevant question and answer objects from the database. The initialize method takes in a user object and sets it as an instance variable to be used in the question and answer methods.</p>
+<h2 id="wine"><strong>Wine</strong></h2>
+<p>The Personality::Wine class is a model that represents a user's preference for good wine. It contains a single method, result, which returns an integer based on the user's answer to a specific question about their wine preference. The result method checks the user's answer to the question and returns a corresponding integer value of 1 or 4. If the user's answer is "No", the method returns 1. If the user's answer is "Yes", the method returns 4. If the user has not provided an answer, the method returns 0. The Personality::Wine class also has a constant, TITLE, which stores the string "Do you have a pallet for good wine?".</p>
+<p>Attributes:</p>
+<p><strong>@user</strong>: an instance variable that stores a reference to the user object.
+Relationships:</p>
+<p>The Personality::Wine class has a one-to-many relationship with the Answer model, through the @user attribute.</p>
+<p>Custom methods:</p>
+<p><strong>result</strong>: a method that returns an integer based on the user's answer to a specific question about their wine preference.</p>
+<p>Examples of usage:</p>
+<pre><code>user = User.find(1)
+personality_wine = Personality::Wine.new(user)
+result = personality_wine.result
+puts result # Outputs 1 or 4, depending on the user's answer to the question
+</code></pre>
 
 
 

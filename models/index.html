@@ -1704,8 +1704,7 @@ It has the following custom methods:</p>
 future: a scope that filters check-ins to only include those with an arrival_date in the future.
 for_branch: a scope that filters check-ins to only include those for a particular branch.</p>
 <p>Here is an example of how the CheckIn model could be used:</p>
-<p>Copy code
-Find a user by their ID</p>
+<p>Find a user by their ID</p>
 <pre><code>user = User.find(1)
 </code></pre>
 <p>Find a branch by its ID</p>
@@ -1760,8 +1759,7 @@ city.save
 <p><strong>has_many :video_content_categories, dependent: :destroy</strong>: indicates that each content category can have many associations with videos through the video_content_categories join table, and these associations will be destroyed if the content category is deleted.</p>
 <p><strong>has_many :videos, through: :video_content_categories</strong>: indicates that a content category can have many videos associated with it through the video_content_categories join table.</p>
 <p>Here is an example of how the ContentCategory model could be used:</p>
-<p>Copy code
-Find a content category by its ID</p>
+<p>Find a content category by its ID</p>
 <pre><code>category = ContentCategory.find(1)
 </code></pre>
 <p>Access the name of the category</p>
@@ -1827,8 +1825,7 @@ It has the following custom methods:</p>
 <p><strong>ios?</strong>: returns true if the platform of the device is "ios", false otherwise.
 android?: returns true if the platform of the device is "android", false otherwise.
 Here is an example of how the Device model could be used:</p>
-<p>Copy code
-Find a device by its token</p>
+<p>Find a device by its token</p>
 <pre><code>device = Device.find_by(token: params[:token])
 </code></pre>
 <p>Check if the device is an iOS device</p>
@@ -1953,8 +1950,7 @@ message.read?
 Custom methods:</p>
 <p>None.
 Examples of usage:</p>
-<p>Copy code
-Assign the 'customer_service' role to the 'booking' member request type</p>
+<p>Assign the 'customer_service' role to the 'booking' member request type</p>
 <pre><code>member_request_type = MemberRequestType.find_by(name: 'booking')
 role = Role.find_by(name: 'customer_service')
 assignment = MemberRequestTypeAssignment.create(member_request_type: member_request_type, role: role)
@@ -2005,22 +2001,18 @@ member_request_type_id: the id of the type of request (integer, foreign key to t
 <p>Custom methods:</p>
 <p><strong>mark_as_unread</strong>: marks the last message from the member as unread.</p>
 <p>Examples of usage:</p>
-<p>Create a new member request:
-Copy code</p>
+<p>Create a new member request:</p>
 <pre><code>request = MemberRequest.new(user_id: 1, branch_id: 2, member_request_type_id: 3, status: "open")
 request.member_request_messages.build(body: "Hi, I would like to book a table for two on Friday at 7pm.", messageable_type: "User")
 request.save
 </code></pre>
-<p>Find all open member requests for a specific branch:
-Copy code</p>
+<p>Find all open member requests for a specific branch:</p>
 <pre><code>requests = MemberRequest.for_branch(2).in_status("open")
 </code></pre>
-<p>Find all member requests for a specific member:
-Copy code</p>
+<p>Find all member requests for a specific member:</p>
 <pre><code>requests = MemberRequest.for_member(1)
 </code></pre>
-<p>Find all member requests with a specific message:
-Copy code</p>
+<p>Find all member requests with a specific message:</p>
 <pre><code>requests = MemberRequest.with_message(5)
 </code></pre>
 <h1 id="notification"><strong>Notification</strong></h1>
@@ -2044,8 +2036,7 @@ Custom methods:</p>
 self.mark_all_read: Marks all notifications as read for the current user by updating the read_at attribute.</p>
 <p><strong>name</strong>: Returns the name of the object that the notification is associated with, or the name of the branch if the object is a MemberRequestMessage.</p>
 <p>Examples of usage:</p>
-<p>Copy code
-Create a new notification</p>
+<p>Create a new notification</p>
 <pre><code>notification = Notification::NewMessage.create!(user: user, object: member_request_message)
 </code></pre>
 <p>Mark a notification as read</p>
@@ -2077,8 +2068,7 @@ the organization has not been archived, this field is nil.</p>
 <p>The Organisation model has the following custom methods:</p>
 <p><strong>reject_photo?(attributes)</strong>: a private method used to determine whether a photo should be rejected when creating or updating an organization. It returns true if the image attribute of the attributes parameter is blank, and false otherwise.</p>
 <p>An example of usage for the Organisation model could be:</p>
-<p>Copy code
-Create a new organization</p>
+<p>Create a new organization</p>
 <pre><code>org = Organisation.new(name: "My Organization")
 </code></pre>
 <h1 id="partnercategory"><strong>PartnerCategory</strong></h1>
@@ -2095,19 +2085,16 @@ Create a new organization</p>
 <p>Custom methods:</p>
 <p><strong>to_s</strong>: returns the title of the partner category as a string
 Examples of usage:</p>
-<p>Creating a new partner category:
-Copy code</p>
+<p>Creating a new partner category:</p>
 <pre><code>category = PartnerCategory.new(title: 'Technology')
 category.save
 </code></pre>
-<p>Adding a branch to a partner category:
-Copy code</p>
+<p>Adding a branch to a partner category:</p>
 <pre><code>category = PartnerCategory.find(1)
 branch = Branch.find(2)
 category.branches &lt;&lt; branch
 </code></pre>
-<p>Displaying the title of a partner category:
-Copy code</p>
+<p>Displaying the title of a partner category:</p>
 <pre><code>category = PartnerCategory.find(1)
 puts category.to_s # outputs the title of the partner category
 </code></pre>
@@ -2119,7 +2106,6 @@ puts category.to_s # outputs the title of the partner category
 <p>initialize(user): Initializes a new instance of the Personality model with a given user.
 result: Returns a hash containing the results of the Lifestyle, Food, and Wine sub-models.</p>
 <p>Examples of usage:</p>
-<p>Copy code</p>
 <pre><code>user = User.find(1)
 personality = Personality.new(user)
 results = personality.result
@@ -2157,10 +2143,10 @@ It has the following custom methods:</p>
 <p>question_ids=: this method is used to set the question_ids attribute, and it removes any blank values from the array of new ids before saving them.
 questions: this method returns a collection of Question objects that belong to the preference group, based on the question_ids attribute.
 An example of usage could be:</p>
-<p>Copy code
-    # Find the preference group with id 1
-    pg = PreferenceGroup.find(1)</p>
-<pre><code># Display the title of the preference group
+<pre><code># Find the preference group with id 1
+pg = PreferenceGroup.find(1)
+
+# Display the title of the preference group
 puts pg.title
 # =&gt; "Food Preferences"
 
@@ -2210,13 +2196,11 @@ It does not have any custom methods or examples of usage.</p>
 <p><strong>diverse_kind?</strong>: returns a boolean indicating whether the question is one of the following types: 'text', 'time', 'time_range'.</p>
 <p>Examples of Usage</p>
 <p>Here are some examples of how the Question model can be used:</p>
-<p>To create a new question:
-Copy code</p>
+<p>To create a new question:</p>
 <pre><code>question = Question.new(title: 'What is your favorite color?', kind: 'option')
 question.save
 </code></pre>
-<p>To retrieve all the questions in a particular category:
-Copy code</p>
+<p>To retrieve all the questions in a particular category:</p>
 <pre><code>category = Category.find_by(name: 'Personal')
 questions = Question.in_category(category)
 </code></pre>
@@ -2236,20 +2220,17 @@ questions = Question.in_category(category)
 There are no custom methods defined in the Rating model.</p>
 <p>Examples of Usage
 Here are some examples of how the Rating model can be used:</p>
-<p>To create a new rating:
-Copy code</p>
+<p>To create a new rating:</p>
 <pre><code>branch = Branch.find_by(name: 'My Branch')
 user = User.find_by(email: 'user@example.com')
 rating = Rating.new(branch: branch, user: user, value: 4)
 rating.save
 </code></pre>
-<p>To retrieve all the ratings for a particular branch:
-Copy code</p>
+<p>To retrieve all the ratings for a particular branch:</p>
 <pre><code>branch = Branch.find_by(name: 'My Branch')
 ratings = Rating.where(branch: branch)
 </code></pre>
-<p>To retrieve the average rating value for a particular branch:
-Copy code</p>
+<p>To retrieve the average rating value for a particular branch:</p>
 <pre><code>branch = Branch.find_by(name: 'My Branch')
 average_rating = Rating.where(branch: branch).average(:value)
 </code></pre>
@@ -2275,31 +2256,25 @@ average_rating = Rating.where(branch: branch).average(:value)
 <p><strong>complete!</strong>: sets the status of the release to 'complete' and broadcasts the status change.</p>
 <p>Examples of Usage
 Here are some examples of how the Release model can be used:</p>
-<p>To create a new release:
-Copy code</p>
+<p>To create a new release:</p>
 <pre><code>release = Release.new(file: '/path/to/file.csv')
 release.save
 </code></pre>
-<p>To retrieve the latest complete release:
-Copy code</p>
+<p>To retrieve the latest complete release:</p>
 <pre><code>latest_release = Release.latest
 </code></pre>
-<p>To retrieve the timestamp of the latest complete release:
-Copy code</p>
+<p>To retrieve the timestamp of the latest complete release:</p>
 <pre><code>latest_timestamp = Release.latest_timestamp
 </code></pre>
-<p>To check if a particular release is the latest complete release:
-Copy code</p>
+<p>To check if a particular release is the latest complete release:</p>
 <pre><code>release = Release.find(1)
 release.latest?
 </code></pre>
-<p>To set the status of a release to 'processing':
-Copy code</p>
+<p>To set the status of a release to 'processing':</p>
 <pre><code>release = Release.find(1)
 release.process!
 </code></pre>
-<p>To set the status of a release to 'complete':
-Copy code</p>
+<p>To set the status of a release to 'complete':</p>
 <pre><code>release = Release.find(1)
 release.complete!
 </code></pre>
@@ -2319,20 +2294,17 @@ release.complete!
 <p>There are no custom methods defined in the RoleAssignment model.</p>
 <p>Examples of Usage
 Here are some examples of how the RoleAssignment model can be used:</p>
-<p>To create a new role assignment:
-Copy code</p>
+<p>To create a new role assignment:</p>
 <pre><code>role = Role.find_by(name: 'Manager')
 staff_member = StaffMember.find_by(email: 'staff@example.com')
 role_assignment = RoleAssignment.new(role: role, staff_member: staff_member)
 role_assignment.save
 </code></pre>
-<p>To retrieve all the role assignments for a particular role:
-Copy code</p>
+<p>To retrieve all the role assignments for a particular role:</p>
 <pre><code>role = Role.find_by(name: 'Manager')
 role_assignments = RoleAssignment.where(role: role)
 </code></pre>
-<p>To retrieve all the role assignments for a particular staff member:
-Copy code</p>
+<p>To retrieve all the role assignments for a particular staff member:</p>
 <pre><code>staff_member = StaffMember.find_by(email: 'staff@example.com')
 role_assignments = RoleAssignment.where(staff_member: staff_member)
 </code></pre>
@@ -2354,8 +2326,7 @@ role_assignments = RoleAssignment.where(staff_member: staff_member)
 <p><strong>right</strong>: a scope that returns all the role preference group assignments with the column attribute set to 'right'.</p>
 <p>Examples of Usage
 Here are some examples of how the RolePreferenceGroupAssignment model can be used:</p>
-<p>To create a new role preference group assignment:
-Copy code</p>
+<p>To create a new role preference group assignment:</p>
 <pre><code>role = Role.find_by(name: 'Manager')
 preference_group = PreferenceGroup.find_by(name: 'General')
 role_preference_group_assignment = RolePreferenceGroupAssignment.new(
@@ -2404,7 +2375,6 @@ role_preference_group
 <p><strong>revoke_all</strong>: a class method that updates the status attribute of all authorised shares to revoked</p>
 <p><strong>create_request_notification, authorise_notifications, deny_notifications, update_notifications, schedule_reminder, notify_graphql_share_change</strong>: private methods that perform actions such as creating notifications, scheduling jobs, and triggering GraphQL subscriptions.</p>
 <p>An example of usage:</p>
-<p>Copy code</p>
 <pre><code>share = Share.new(branch_id: 1, user_id: 2)
 share.request
 </code></pre>
@@ -2426,8 +2396,7 @@ Custom Methods</p>
 <p>None.</p>
 <p>Examples of Usage</p>
 <p>Suppose we have a Project model and a StaffMember model and we want to create a staff assignment that associates a staff member with a project. We could do so as follows:</p>
-<p>Copy code
-project = Project.find(1)
+<p>project = Project.find(1)
 staff_member = StaffMember.find(2)</p>
 <p>staff_assignment = StaffAssignment.new(
   staff_member: staff_member,

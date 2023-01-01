@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#answerversion" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -490,9 +495,66 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          version
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         version
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#answerversion" class="md-nav__link">
+    AnswerVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base" class="md-nav__link">
+    Base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questionversion" class="md-nav__link">
+    QuestionVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useranswerversion" class="md-nav__link">
+    UserAnswerVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userversion" class="md-nav__link">
+    UserVersion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -523,6 +585,49 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#answerversion" class="md-nav__link">
+    AnswerVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base" class="md-nav__link">
+    Base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questionversion" class="md-nav__link">
+    QuestionVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useranswerversion" class="md-nav__link">
+    UserAnswerVersion
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#userversion" class="md-nav__link">
+    UserVersion
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -538,7 +643,104 @@
 
   <h1>version</h1>
 
+<h2 id="answerversion"><strong>AnswerVersion</strong></h2>
+<p>The AnswerVersion model is a class that represents a version of an Answer object. It is responsible for storing changes made to an Answer object and recording metadata about these changes, such as the time they were made and the user who made them.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique integer identifier for the version</p>
+<p><strong>item_type</strong>: a string indicating the type of object being versioned (in this case, Answer)</p>
+<p><strong>item_id</strong>: an integer identifier for the Answer object being versioned</p>
+<p><strong>event</strong>: a string indicating the type of change being made to the object (e.g. create, update, destroy)</p>
+<p><strong>whodunnit</strong>: a string identifier for the user who made the change</p>
+<p><strong>object</strong>: a JSON column containing the state of the Answer object at the time of the version</p>
+<p><strong>object_changes</strong>: a JSON column containing the changes made to the object in this version</p>
+<p><strong>ip_address</strong>: the IP address of the client making the change</p>
+<p><strong>user_agent</strong>: the user agent of the client making the change</p>
+<p><strong>created_at</strong>: a timestamp for when the version was created</p>
+<p>Relationships:</p>
+<p>AnswerVersion is related to Answer through the item_type and item_id columns.</p>
+<p>AnswerVersion has no custom methods.</p>
+<h2 id="base"><strong>Base</strong></h2>
+<p>The Versions::Base class is a subclass of PaperTrail::Version, which is a model that stores the changes made to other models in your application. Versions::Base includes two concerns: PaperTrailUser and VersionsTable.</p>
+<p>PaperTrailUser provides a custom method called actor, which returns the user object associated with the version record. This is determined by the whodunnit field, which stores the ID of the user who made the change. actor fetches the user object with this ID and returns it.</p>
+<p>VersionsTable provides a class method called versions_table, which allows you to specify the name of the database table that should be used to store version records. This can be useful if you want to store version records in a table with a different name than the default, which is versions.</p>
+<p>Example usage:</p>
+<pre><code>class User &lt; ApplicationRecord
+  has_paper_trail
+end
 
+user = User.create(name: 'John')
+user.update(name: 'Jane')
+
+version = Versions::Base.last
+version.actor # returns the user object who made the change
+</code></pre>
+<h2 id="questionversion"><strong>QuestionVersion</strong></h2>
+<p>The QuestionVersion model is a class that extends the Base class in the Versions module. It represents the version of a Question object in the question_versions table in the database.</p>
+<p>The QuestionVersion model has the following attributes:</p>
+<p><strong>id</strong>: a bigint representing the primary key of the record.</p>
+<p><strong>item_type</strong>: a string representing the type of the object being versioned. In this case, it will always be "Question".</p>
+<p><strong>item_id</strong>: a bigint representing the ID of the Question object being versioned.</p>
+<p><strong>event</strong>: a string representing the type of event that caused the version to be created. This can be "create", "update", or "destroy".</p>
+<p><strong>whodunnit</strong>: a string representing the ID of the user who caused the version to be created.
+object: a JSONB column representing the serialized version of the Question object at the time the version was created.</p>
+<p><strong>object_changes</strong>: a JSONB column representing the changes made to the Question object between this version and the previous version.</p>
+<p><strong>ip_address</strong>: an inet column representing the IP address of the user who caused the version to be created.</p>
+<p><strong>user_agent</strong>: a string representing the user agent of the user who caused the version to be created.</p>
+<p><strong>created_at</strong>: a datetime representing the time the version was created.</p>
+<p>The QuestionVersion model has the following custom methods:</p>
+<p><strong>versions_table</strong>: a class method that sets the name of the table to be used for storing versions.</p>
+<p><strong>paper_trail_actor</strong>: a class method that sets the type of user that caused the version to be created.</p>
+<h2 id="useranswerversion"><strong>UserAnswerVersion</strong></h2>
+<p>The model Versions::UserAnswerVersion is a subclass of Versions::Base. It stores information about versions of UserAnswer records. Versions::Base includes the PaperTrailUser and VersionsTable modules, which provide methods for accessing the actor responsible for creating a version and customizing the table name and sequence name of the model, respectively.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a unique identifier for the version</p>
+<p><strong>item_type</strong>: the type of record that the version belongs to (in this case, "UserAnswer")</p>
+<p><strong>item_id</strong>: the unique identifier of the record that the version belongs to</p>
+<p><strong>event</strong>: the type of event that triggered the version creation (e.g. "create", "update", "destroy")</p>
+<p><strong>whodunnit</strong>: a string representing the actor responsible for creating the version</p>
+<p><strong>object</strong>: a JSON column storing the serialized version of the record</p>
+<p><strong>object_changes</strong>: a JSON column storing the changes made to the record in this version</p>
+<p><strong>ip_address</strong>: the IP address of the actor responsible for creating the version</p>
+<p><strong>user_agent</strong>: the user agent of the actor responsible for creating the version</p>
+<p><strong>created_at</strong>: the timestamp for when the version was created</p>
+<p>Relationships:</p>
+<p>None.
+Custom methods:</p>
+<p><strong>paper_trail_actor(user_type)</strong>: a class method that defines a actor method on the model, which retrieves the actor responsible for creating the version. user_type is the type of actor that is expected (e.g. :vista_admin, :user).</p>
+<p><strong>versions_table(versions_table_name)</strong>: a class method that sets the table_name and sequence_name class attributes to the specified versions_table_name.</p>
+<p>Example of usage:</p>
+<pre><code># Find the latest version of a user's answer with id 1
+latest_version = Versions::UserAnswerVersion.where(item_id: 1).last
+
+# Print the event that triggered this version
+puts latest_version.event
+
+# Print the actor responsible for creating this version
+puts latest_version.actor.username
+
+# Print the changes made to the user's answer in this version
+puts latest_version.object_changes
+</code></pre>
+<h2 id="userversion"><strong>UserVersion</strong></h2>
+<p>The Versions::UserVersion class is a class representing a version of a user object. It is a subclass of the Versions::Base class which includes the PaperTrailUser and VersionsTable modules.</p>
+<p>Attributes:</p>
+<p><strong>id</strong>: a bigint representing the primary key for the record.</p>
+<p><strong>item_type</strong>: a string representing the type of item being tracked (in this case, "User").</p>
+<p><strong>item_id</strong>: a bigint representing the id of the user object being tracked.</p>
+<p><strong>event</strong>: a string representing the type of change being tracked (e.g. "create", "update", "destroy").</p>
+<p><strong>whodunnit</strong>: a string representing the id of the user who made the change.</p>
+<p><strong>object</strong>: a JSONB column representing the state of the user object at the time of the change.
+object_changes: a JSONB column representing the changes made to the user object at the time of the change.</p>
+<p><strong>ip_address</strong>: an INET column representing the IP address of the user who made the change.</p>
+<p><strong>user_agent</strong>: a string representing the user agent of the user who made the change.</p>
+<p><strong>created_at</strong>: a datetime representing the time the change was made.</p>
+<p>Relationships:</p>
+<p>None.
+Custom methods:</p>
+<p>None, besides those inherited from the PaperTrailUser and VersionsTable modules.
+Examples of usage:</p>
+<p>When a user object is created, updated, or destroyed, a new Versions::UserVersion object is created and associated with the user object.
+The Versions::UserVersion class can be queried to retrieve a list of changes made to user objects over time.</p>
 
 
 
