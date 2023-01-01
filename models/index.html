@@ -776,13 +776,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#staffmember" class="md-nav__link">
-    StaffMember
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#topquestion" class="md-nav__link">
     TopQuestion
   </a>
@@ -792,13 +785,6 @@
         <li class="md-nav__item">
   <a href="#useranswer" class="md-nav__link">
     UserAnswer
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user" class="md-nav__link">
-    User
   </a>
   
 </li>
@@ -1206,13 +1192,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#staffmember" class="md-nav__link">
-    StaffMember
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#topquestion" class="md-nav__link">
     TopQuestion
   </a>
@@ -1222,13 +1201,6 @@
         <li class="md-nav__item">
   <a href="#useranswer" class="md-nav__link">
     UserAnswer
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#user" class="md-nav__link">
-    User
   </a>
   
 </li>
@@ -2382,38 +2354,196 @@ share.request
 <h1 id="staffassignment"><strong>StaffAssignment</strong></h1>
 <p>The StaffAssignment model represents an association between a staff member and a target object. The target object can be any object that has an id column in the database and is polymorphic (can be associated with multiple types of objects).</p>
 <p>Attributes</p>
-<p>id: A big integer primary key.
-staff_member_id: An integer that represents the id of the associated staff member.
-target_type: A string that represents the class name of the associated target object.
-target_id: An integer that represents the id of the associated target object.
-created_at: A datetime that represents the time at which the staff assignment was created.
-updated_at: A datetime that represents the time at which the staff assignment was last updated.
-archived_at: A datetime that represents the time at which the staff assignment was archived.
-Relationships</p>
+<p><strong>id</strong>: A big integer primary key.</p>
+<p><strong>staff_member_id</strong>: An integer that represents the id of the associated staff member.</p>
+<p><strong>target_type</strong>: A string that represents the class name of the associated target object.</p>
+<p><strong>target_id</strong>: An integer that represents the id of the associated target object.</p>
+<p><strong>created_at</strong>: A datetime that represents the time at which the staff assignment was created.</p>
+<p><strong>updated_at</strong>: A datetime that represents the time at which the staff assignment was last updated.</p>
+<p><strong>archived_at</strong>: A datetime that represents the time at which the staff assignment was archived.</p>
+<p>Relationships</p>
 <p>belongs_to :staff_member: The staff assignment belongs to a staff member.
 belongs_to :target, polymorphic: true: The staff assignment belongs to a target object that is polymorphic.
 Custom Methods</p>
 <p>None.</p>
 <p>Examples of Usage</p>
 <p>Suppose we have a Project model and a StaffMember model and we want to create a staff assignment that associates a staff member with a project. We could do so as follows:</p>
-<p>project = Project.find(1)
-staff_member = StaffMember.find(2)</p>
-<p>staff_assignment = StaffAssignment.new(
-  staff_member: staff_member,
-  target: project
-)</p>
-<p>if staff_assignment.save
-  puts "Staff assignment created successfully!"
+<pre><code>project = Project.find(1)
+staff_member = StaffMember.find(2)
+
+staff_assignment = StaffAssignment.new(
+staff_member: staff_member,
+target: project
+)
+
+if staff_assignment.save
+puts "Staff assignment created successfully!"
 else
-  puts "Error creating staff assignment: #{staff_assignment.errors.full_messages.join(', ')}"
-end</p>
-<h1 id="staffmember"><strong>StaffMember</strong></h1>
+puts "Error creating staff assignment: #{staff_assignment.errors.full_messages.join(', ')}"
+end
+</code></pre>
+<!-- # **StaffMember** -->
+
 <h1 id="topquestion"><strong>TopQuestion</strong></h1>
+<p>The TopQuestion model is a subclass of the Question model, which represents a question that can be asked to users. It has the following attributes:</p>
+<p><strong>id</strong>: a primary key, an integer, that uniquely identifies the question.</p>
+<p><strong>category_id</strong>: an integer that represents the category to which the question belongs.</p>
+<p><strong>title</strong>: a string that represents the title of the question.</p>
+<p><strong>kind</strong>: a string that represents the type of question, such as multiple choice or true/false.</p>
+<p><strong>created_at</strong>: a datetime that represents the time when the question was created.</p>
+<p><strong>updated_at</strong>: a datetime that represents the time when the question was last updated.</p>
+<p><strong>locking_conditions</strong>: a jsonb field that represents the conditions under which the question is locked.</p>
+<p><strong>intro</strong>: a boolean field that represents whether the question is an introduction question or not.</p>
+<p><strong>allows_note</strong>: a boolean field that represents whether the question allows users to add a note or not.</p>
+<p><strong>note_title</strong>: a string that represents the title of the note that users can add.</p>
+<p><strong>processed_at</strong>: a datetime that represents the time when the question was processed.</p>
+<p><strong>text_style</strong>: a string that represents the style of the text used in the question.</p>
+<p><strong>blur_background</strong>: a boolean field that represents whether the background of the question should be blurred or not.</p>
+<p><strong>background_overlay</strong>: a boolean field that represents whether an overlay should be applied to the background of the question or not.</p>
+<p>The TopQuestion model has the following custom method:</p>
+<p>answers: returns a relation that represents the answers given by the user specified by the user_id class attribute to the question.
+An example of usage of the TopQuestion model is as follows:</p>
+<pre><code># Set the user ID for the current thread
+TopQuestion.user_id = current_user.id
+
+# Find the top question for the user
+top_question = TopQuestion.find(params[:id])
+
+# Get the answers given by the user to the top question
+answers = top_question.answers
+</code></pre>
 <h1 id="useranswer"><strong>UserAnswer</strong></h1>
-<h1 id="user"><strong>User</strong></h1>
+<p>The UserAnswer model represents an answer to a question by a user. It has the following attributes:</p>
+<p><strong>id</strong>: a unique identifier for the answer, stored as a bigint</p>
+<p><strong>user_id</strong>: the identifier of the user who provided the answer, stored as an integer</p>
+<p><strong>question_id</strong>: the identifier of the question being answered, stored as an integer</p>
+<p><strong>created_at</strong>: a timestamp for when the answer was created, stored as a datetime</p>
+<p><strong>updated_at</strong>: a timestamp for when the answer was last updated, stored as a datetime</p>
+<p><strong>note</strong>: a text field for storing a note or explanation related to the answer</p>
+<p><strong>values</strong>: a text field for storing the actual answer, which can be serialized into different data types depending on the type of the question</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :question</strong>: each answer belongs to a single question</p>
+<p><strong>belongs_to :user</strong>: each answer is provided by a single user</p>
+<p>It has the following custom methods:</p>
+<p><strong>Question::KINDS.each do |kind_name| define_method("#{kind_name}?") { kind == kind_name } end</strong>: this generates methods for each type of question, such as ordered_list?, unordered_list?, text?, etc., which return a boolean indicating whether the answer's question has the corresponding type.</p>
+<p><strong>values_format</strong>: a private method that validates the format of the values attribute based on the type of the question. If the format is invalid, it adds an error to the values attribute.
+Here are some examples of how the UserAnswer model could be used:</p>
+<pre><code># Create a new user answer
+answer = UserAnswer.new(user_id: 1, question_id: 2, values: 'This is my answer')
+answer.save
+
+# Find a user answer by its id
+answer = UserAnswer.find(5)
+
+# Update an existing user answer
+answer.values = 'This is my updated answer'
+answer.save
+
+# Check if a user answer's question is of a certain type
+answer.text? # returns true if the question is a text type, false otherwise
+
+# Access the user and question associated with a user answer
+user = answer.user
+question = answer.question
+</code></pre>
+<!-- # **User** -->
+
 <h1 id="videocontentcategory"><strong>VideoContentCategory</strong></h1>
+<p>VideoContentCategory is a model in a Ruby on Rails application that represents the many-to-many relationship between videos and content categories. It has the following attributes:</p>
+<p><strong>id</strong>: a bigint that serves as the primary key for the model and is automatically generated by the database.</p>
+<p><strong>video_id</strong>: a bigint that represents the foreign key for the video model.</p>
+<p><strong>content_category_id</strong>: a bigint that represents the foreign key for the content_category model.</p>
+<p><strong>created_at</strong>: a datetime that represents when the record was created.</p>
+<p><strong>updated_at</strong>: a datetime that represents when the record was last updated.</p>
+<p>It has the following relationships:</p>
+<p><strong>belongs_to :video</strong>: This indicates that each instance of the VideoContentCategory model belongs to a single video model.</p>
+<p><strong>belongs_to :content_category</strong>: This indicates that each instance of the VideoContentCategory model belongs to a single content_category model.</p>
+<p>It has the following custom methods: None.</p>
+<p>Here is an example of how the VideoContentCategory model might be used:</p>
+<pre><code># Create a new video content category record that associates a video with a content category
+video_content_category = VideoContentCategory.new(video_id: 1, content_category_id: 2)
+
+# Save the video content category record to the database
+video_content_category.save
+</code></pre>
 <h1 id="video"><strong>Video</strong></h1>
+<p>Video is a model in a Ruby on Rails application that represents a video that can be published and viewed by users. It has the following attributes:</p>
+<p><strong>id</strong>: a bigint that serves as the primary key for the model and is automatically generated by the database.</p>
+<p><strong>name</strong>: a string that represents the name of the video.</p>
+<p><strong>description</strong>: a text field that provides a description of the video.</p>
+<p><strong>url</strong>: a string that represents the URL of the video.</p>
+<p><strong>published_at</strong>: a datetime that represents when the video was published.</p>
+<p><strong>organisation_id</strong>: a bigint that represents the foreign key for the organisation model.</p>
+<p><strong>vista_admin_id</strong>: a bigint that represents the foreign key for the vista_admin model.</p>
+<p><strong>notification_job_id</strong>: an integer that represents the ID of a notification job related to the video.</p>
+<p><strong>created_at</strong>: a datetime that represents when the record was created.</p>
+<p><strong>updated_at</strong>: a datetime that represents when the record was last updated.</p>
+<p><strong>published</strong>: a boolean that indicates whether the video has been published or not.</p>
+<p><strong>archived_at</strong>: a datetime that represents when the video was archived.</p>
+<p><strong>platform_id</strong>: a string that represents the ID of the video on a platform like Vimeo.</p>
+<p>It has the following relationships:</p>
+<p><strong>has_many :video_content_categories, dependent: :destroy</strong>: This indicates that a video can have many video content categories and that these should be destroyed when the video is destroyed.</p>
+<p><strong>has_many :content_categories, through: :video_content_categories</strong>: This indicates that a video can have many content categories through its video content categories.</p>
+<p><strong>belongs_to :vista_admin</strong>: This indicates that a video belongs to a single vista admin.</p>
+<p><strong>belongs_to :organisation, optional</strong>: true: This indicates that a video can optionally belong to an organisation.</p>
+<p>It has the following custom methods:</p>
+<p><strong>check_published_status</strong>: This method is called before the video is saved and checks if the published status has changed. If it has and the video is being published, it sets the published_at attribute to the current time.</p>
+<p><strong>extract_platform_id</strong>: This method is called before the video is saved and extracts the ID of the video on a platform like Vimeo from the url attribute.</p>
+<p>It also has the following scope methods:</p>
+<p><strong>in_organisation</strong>: This scope filters videos by the given organisation.</p>
+<p><strong>newest_first</strong>: This scope orders videos by their created_at attribute in descending order.</p>
+<p><strong>for_vista</strong>: This scope filters videos that do not belong to an organisation.</p>
+<p><strong>search</strong>: This scope filters videos by a search term that is matched against the name and description attributes.</p>
+<p><strong>published</strong>: This scope filters published videos.</p>
+<p>Here is an example of how the Video model might be used:</p>
+<p>Copy code
+    # Find all published videos in an organisation
+    videos = Video.in_organisation(1).published</p>
+<pre><code># Find the most recently created video
+newest_video = Video.newest_first.first
+
+# Search for videos with the term 'cat' in their name or description
+cat_videos = Video.search('cat')
+</code></pre>
 <h1 id="vistaadmin"><strong>VistaAdmin</strong></h1>
+<p>VistaAdmin is a model in a Ruby on Rails application that represents an administrator for the Vista platform. It has the following attributes:</p>
+<p><strong>id</strong>: a bigint that serves as the primary key for the model and is automatically generated by the database.</p>
+<p><strong>first_name</strong>: a string that represents the first name of the administrator.</p>
+<p><strong>last_name</strong>: a string that represents the last name of the administrator.</p>
+<p><strong>email</strong>: a string that represents the email address of the administrator.</p>
+<p><strong>encrypted_password</strong>: a string that represents the encrypted password of the administrator.</p>
+<p><strong>reset_password_token</strong>: a string that represents a token used for resetting the password.</p>
+<p><strong>reset_password_sent_at</strong>: a datetime that represents when the reset password token was sent.</p>
+<p><strong>remember_created_at</strong>: a datetime that represents when the administrator chose to be remembered.</p>
+<p><strong>sign_in_count</strong>: an integer that represents the number of times the administrator has signed in.</p>
+<p><strong>current_sign_in_at</strong>: a datetime that represents the current sign in time of the administrator.</p>
+<p><strong>last_sign_in_at</strong>: a datetime that represents the last sign in time of the administrator.</p>
+<p><strong>current_sign_in_ip</strong>: an inet field that represents the current sign in IP address of the administrator.</p>
+<p><strong>last_sign_in_ip</strong>: an inet field that represents the last sign in IP address of the administrator.</p>
+<p><strong>confirmation_token</strong>: a string that represents a confirmation token for the administrator.</p>
+<p><strong>confirmed_at</strong>: a datetime that represents when the administrator was confirmed.</p>
+<p><strong>confirmation_sent_at</strong>: a datetime that represents when the confirmation token was sent.</p>
+<p><strong>unconfirmed_email</strong>: a string that represents the unconfirmed email address of the administrator.</p>
+<p><strong>failed_attempts</strong>: an integer that represents the number of failed attempts by the administrator.</p>
+<p><strong>unlock_token</strong>: a string that represents a token used to unlock the administrator's account.</p>
+<p><strong>locked_at</strong>: a datetime that represents when the administrator's account was locked.</p>
+<p><strong>created_at</strong>: a datetime that represents when the record was created.</p>
+<p><strong>updated_at</strong>: a datetime that represents when the record was last updated.</p>
+<p>It has the following relationships:</p>
+<p><strong>has_many :videos</strong>: This indicates that a VistaAdmin can have many videos.</p>
+<p>It has the following custom methods:</p>
+<p><strong>attempt_set_password</strong>: This method allows the administrator to set a new password without knowing the current password.</p>
+<p><strong>no_password?</strong>: This method returns a boolean indicating whether the administrator has a password set.</p>
+<p><strong>only_if_unconfirmed</strong>: This method yields to a block if the administrator has not been confirmed.</p>
+<p><strong>password_match?</strong>: This method returns a boolean indicating whether the entered password and password confirmation match.</p>
+<p>It also includes the Devise module for authentication and confirmation.</p>
+<p>Here is an example of how the VistaAdmin model might be used:</p>
+<pre><code># Find a VistaAdmin by email
+vista_admin = VistaAdmin.find_by(email: 'admin@example.com')
+
+# Check if the VistaAdmin's password is blank
+if vista_admin.no_password?
+</code></pre>
 
 
 

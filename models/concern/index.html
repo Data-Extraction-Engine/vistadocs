@@ -796,12 +796,12 @@ Custom methods:</p>
 <p><strong>paper_trail_actor</strong>: Accepts a user_type argument and defines the actor method on the model.</p>
 <p><strong>actor</strong>: Returns an instance of the user_type class with an id equal to the value of the whodunnit attribute of the model. If the whodunnit attribute is not present, returns nil.
 Example of usage:</p>
-<p>Copy code
-    class User &lt; ApplicationRecord
-        include PaperTrailUser
-        paper_trail_actor :user
-    end</p>
-<pre><code>user = User.create(name: 'Bob')
+<pre><code>class User &lt; ApplicationRecord
+    include PaperTrailUser
+    paper_trail_actor :user
+end
+
+user = User.create(name: 'Bob')
 # =&gt; #&lt;User id: 1, name: 'Bob', whodunnit: 1&gt;
 </code></pre>
 <h2 id="versionstable"><strong>VersionsTable</strong></h2>
@@ -813,11 +813,11 @@ Relationships:</p>
 Custom methods:</p>
 <p>versions_table(versions_table_name): specifies the name of the table that should be used to store version records for the model
 Example of usage:</p>
-<p>Copy code
-    class MyModel &lt; ApplicationRecord
-        include VersionsTable
-        versions_table :my_model_versions
-    end</p>
+<pre><code>class MyModel &lt; ApplicationRecord
+    include VersionsTable
+    versions_table :my_model_versions
+end
+</code></pre>
 
 
 
