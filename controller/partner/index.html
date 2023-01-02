@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#staffadminscontroller" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -348,9 +353,108 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Partner
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Partner
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#staffadminscontroller" class="md-nav__link">
+    Staff::AdminsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffbranchmanagerscontroller" class="md-nav__link">
+    Staff::BranchManagersController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffstaffmemberscontroller" class="md-nav__link">
+    Staff::StaffMembersController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffmembersconfirmationscontroller" class="md-nav__link">
+    StaffMembers::ConfirmationsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basecontroller" class="md-nav__link">
+    BaseController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branchescontroller" class="md-nav__link">
+    BranchesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#businessunitscontroller" class="md-nav__link">
+    BusinessUnitsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memberrequesttypescontroller" class="md-nav__link">
+    MemberRequestTypesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questionscontroller" class="md-nav__link">
+    QuestionsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolescontroller" class="md-nav__link">
+    RolesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessionscontroller" class="md-nav__link">
+    SessionsController
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -523,6 +627,91 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#staffadminscontroller" class="md-nav__link">
+    Staff::AdminsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffbranchmanagerscontroller" class="md-nav__link">
+    Staff::BranchManagersController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffstaffmemberscontroller" class="md-nav__link">
+    Staff::StaffMembersController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffmembersconfirmationscontroller" class="md-nav__link">
+    StaffMembers::ConfirmationsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basecontroller" class="md-nav__link">
+    BaseController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#branchescontroller" class="md-nav__link">
+    BranchesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#businessunitscontroller" class="md-nav__link">
+    BusinessUnitsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memberrequesttypescontroller" class="md-nav__link">
+    MemberRequestTypesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questionscontroller" class="md-nav__link">
+    QuestionsController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolescontroller" class="md-nav__link">
+    RolesController
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessionscontroller" class="md-nav__link">
+    SessionsController
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -538,7 +727,53 @@
 
   <h1>Partner</h1>
 
-
+<h2 id="staffadminscontroller"><strong>Staff::AdminsController</strong></h2>
+<p>Partners::Staff::AdminsController is a controller in the Partners namespace and Staff module that inherits from Partners::BaseController. It has actions for viewing and managing Admin objects, such as index, show, new, edit, create, update, and destroy. The before_action callback at the top of the controller runs the set_admin method before the show, edit, update, and destroy actions. This method sets the @admin instance variable to the Admin model with an id matching the :id parameter in the request.</p>
+<p>The index action sets the @admins instance variable to all Admin objects, scoped by the current policy, and authorized with the authorize method. The show action redirects to the edit action for the @admin object. The new action sets the @admin instance variable to a new Admin object belonging to the current organization and authorized with the authorize method. The edit action simply authorizes the @admin object.</p>
+<p>The create action creates a new Admin object belonging to the current organization with the admin_params method as its attributes, authorizes it with the authorize method, and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the new view. The update action updates the attributes of the @admin object with the admin_params method and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the edit view. The destroy action destroys the @admin object and redirects to the index action with a success message.</p>
+<p>The admin_params method whitelists certain parameters for mass assignment when creating or updating an Admin object.</p>
+<p>To use this controller, you will need to define routes that map to the various actions, such as get '/partners/staff/admins' =&gt; 'partners/staff/admins#index'. You can then visit the URL corresponding to that route in a web browser to see the view rendered by the corresponding action.</p>
+<p>Error conditions that may be encountered include attempting to access a non-existent Admin object and unauthorized access to certain actions. These error conditions may be handled with exception handling in the controller or by using Pundit policies to authorize actions.</p>
+<h2 id="staffbranchmanagerscontroller"><strong>Staff::BranchManagersController</strong></h2>
+<p>Partners::Staff::BranchManagersController is a controller in the Partners namespace and Staff module that inherits from Partners::BaseController. It has actions for viewing and managing BranchManager objects, such as index, show, new, edit, create, update, and destroy. The before_action callback at the top of the controller runs the set_branch_manager method before the show, edit, update, and destroy actions. This method sets the @branch_manager instance variable to the BranchManager model with an id matching the :id parameter in the request.</p>
+<p>The index action sets the @branch_managers instance variable to all BranchManager objects, scoped by the current policy, and authorized with the authorize method. The show action redirects to the edit action for the @branch_manager object. The new action sets the @branch_manager instance variable to a new BranchManager object belonging to the current organization and authorized with the authorize method. The edit action simply authorizes the @branch_manager object.</p>
+<p>The create action creates a new BranchManager object belonging to the current organization with the branch_manager_params method as its attributes, authorizes it with the authorize method, and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the new view. The update action updates the attributes of the @branch_manager object with the branch_manager_params method and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the edit view. The destroy action destroys the @branch_manager object and redirects to the index action with a success message.</p>
+<p>The branch_manager_params method whitelists certain parameters for mass assignment when creating or updating a BranchManager object.</p>
+<p>To use this controller, you will need to define routes that map to the various actions, such as get '/partners/staff/branch_managers' =&gt; 'partners/staff/branch_managers#index'. You can then visit the URL corresponding to that route in a web browser to see the view rendered by the corresponding action.</p>
+<p>Error conditions that may be encountered include attempting to access a non-existent BranchManager object and unauthorized access to certain actions. These error conditions may be handled with exception handling in the controller or by using Pundit policies to authorize actions.</p>
+<h2 id="staffstaffmemberscontroller"><strong>Staff::StaffMembersController</strong></h2>
+<p>Partners::Staff::StaffMembersController is a controller in the Partners namespace and Staff module that inherits from Partners::BaseController. It has actions for viewing and managing StaffMember objects, such as index, show, new, edit, create, update, and destroy. The before_action callback at the top of the controller runs the set_staff_member method before the show, edit, update, and destroy actions. This method sets the @staff_member instance variable to the StaffMember model with an id matching the :id parameter in the request.</p>
+<p>The index action sets the @staff_members instance variable to all StaffMember objects, scoped by the current policy and filtered with the only_staff_members method, and authorized with the authorize method. The show action redirects to the edit action for the @staff_member object. The new action sets the @staff_member instance variable to a new StaffMember object belonging to the current organization and authorized with the authorize method. The edit action simply authorizes the @staff_member object.</p>
+<p>The create action creates a new StaffMember object belonging to the current organization with the staff_member_params method as its attributes, sets the confirmed_at attribute to the current time, authorizes it with the authorize method, and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the new view. The update action updates the attributes of the @staff_member object with the staff_member_params method and then attempts to save it to the database. If the save is successful, it redirects to the index action with a success message. If the save is unsuccessful, it re-renders the edit view. The destroy action destroys the @staff_member object and redirects to the index action with a success message.</p>
+<p>The staff_member_params method whitelists certain parameters for mass assignment when creating or updating a StaffMember object.</p>
+<p>To use this controller, you will need to define routes that map to the various actions, such as get '/partners/staff/staff_members' =&gt; 'partners/staff/staff_members#index'. You can then visit the URL corresponding to that route in a web browser to see the view rendered by the corresponding action.</p>
+<p>Error conditions that may be encountered include attempting to access a non-existent StaffMember object and unauthorized access to certain actions. These error conditions may be handled with exception handling in the controller or by using Pundit policies to authorize actions.</p>
+<h2 id="staffmembersconfirmationscontroller"><strong>StaffMembers::ConfirmationsController</strong></h2>
+<p>The Partners::StaffMembers::ConfirmationsController is a subclass of Devise::ConfirmationsController which handles staff member account confirmation. It has two actions: update and show. The update action is called when a staff member submits the confirmation form after clicking the confirmation link in their email. If the staff member has not yet set a password, it will attempt to set the password with the provided params. If the password is valid and the confirmation token is valid, it will confirm the staff member's account and sign them in. If the staff member has already set a password or the provided password is invalid, it will render the show action. The show action is called when a staff member clicks the confirmation link in their email and displays the confirmation form if the staff member has not yet set a password. If the staff member has already set a password, it will confirm the staff member's account and sign them in. In both cases, if there are any errors, it will render the staff_members/confirmations/new view.</p>
+<h2 id="basecontroller"><strong>BaseController</strong></h2>
+<p>The Partners::BaseController is a base class for controllers in the Partners namespace. It defines a number of before and after actions that will be run for each request made to a controller that inherits from this base class. These actions include authenticating the staff member, setting the context for error tracking with Raven, setting the user responsible for any changes tracked by PaperTrail, and preparing unobtrusive flash messages. It also defines a layout and helper method that will be available to all controllers that inherit from it. The controller has a rescue_from block that catches a Pundit::NotAuthorizedError and redirects the user to the partners root path with a flash message. It also has a private method for determining the current organization for the signed in staff member.</p>
+<h2 id="branchescontroller"><strong>BranchesController</strong></h2>
+<p>The Partners::BranchesController is a subclass of Partners::BaseController, which provides common functionality to controllers in the Partners namespace. This controller is responsible for handling CRUD (create, read, update, delete) operations for branches. A branch is a location of a business that belongs to a business unit. A business unit is a logical grouping of branches, and each business unit belongs to a single organisation.</p>
+<p>This controller has six actions: index, show, new, edit, create, and destroy. The index action retrieves a paginated list of branches for a given business unit, and the show action redirects to the edit action for the given branch. The new and edit actions render a form for creating or updating a branch, respectively. The create and update actions handle the submission of the form and either create or update the branch, respectively. The destroy action deletes the given branch.</p>
+<p>This controller interacts with three models: BusinessUnit, Branch, and Address. The BusinessUnit model represents a business unit, the Branch model represents a branch, and the Address model represents the physical address of a branch.</p>
+<p>Error conditions that this controller handles include Pundit::NotAuthorizedError, which is raised when a staff member attempts to perform an action that they are not authorized to perform. When this error is raised, the controller responds by redirecting the user to the partners root path and displaying an alert message.</p>
+<p>Examples of usage for this controller include creating a new branch for a business unit, editing the details of an existing branch, and deleting a branch that is no longer in use.</p>
+<h2 id="businessunitscontroller"><strong>BusinessUnitsController</strong></h2>
+<p>The Partners::BusinessUnitsController is a subclass of Partners::BaseController, which means it has access to the helper methods and before actiPartners::BusinessUnitsControllerons defined in the base controller. This controller is responsible for handling actions related to business units within the Partners namespace. The controller can handle the following routes: index, show, new, create, update, and destroy. It interacts with the BusinessUnit model and uses policy scope to retrieve a paginated list of business units for the index action. The controller also has a private set_business_unit method which sets an instance variable @business_unit to a specific business unit based on the id provided in the params. The controller also has a private business_unit_params method which whitelists the name attribute for mass assignment. If a business unit fails to save or update, an error message will be displayed to the user. An example of usage for this controller might be visiting the index route to view a list of all business units within the current organisation.</p>
+<h2 id="memberrequesttypescontroller"><strong>MemberRequestTypesController</strong></h2>
+<p>The Partners::MemberRequestTypesController is a subclass of Partners::BaseController, meaning it inherits behavior and methods from the base class. This controller is responsible for handling actions related to member request types within a business unit. It has actions for listing, creating, updating, and destroying member request types.</p>
+<p>The controller uses the before_action hook to set the business unit and request type for certain actions. The index action retrieves a paginated list of all member request types within the business unit and authorizes them for the current user. The new action creates a new instance of a member request type for the business unit. The create action creates a new member request type using the provided parameters and assigns it to the current business unit. If the save is successful, the user is redirected to the list of member request types for the business unit, otherwise the new template is rendered. The update action updates the provided member request type with the given parameters and redirects to the list of member request types upon success. The destroy action destroys the provided member request type and redirects to the list of member request types upon success.</p>
+<p>The private set_business_unit and set_request_type methods retrieve the business unit and member request type, respectively, based on the provided id in the params. The member_request_type_params method is used to whitelist the parameters for creating or updating a member request type. The models interacted with by this controller include the MemberRequestType model and the BusinessUnit model. An error condition that could occur is if the user is not authorized to perform an action, in which case they will be redirected to the root path with an alert message. An example of usage for this controller could be a business unit administrator wanting to create a new member request type for their business unit to track customer requests.</p>
+<h2 id="questionscontroller"><strong>QuestionsController</strong></h2>
+<p>The Partners::QuestionsController is a controller in the Partners namespace that inherits from the Partners::BaseController. It has a single action, "index", which defines an instance variable @questions as the result of a paginated query to the Question model using the policy_scope method. The index action then renders a JSON response containing the id and title attributes of each Question object in @questions. This controller does not interact with any models outside of the Question model. There are no error conditions or examples of usage specified in the given code.</p>
+<h2 id="rolescontroller"><strong>RolesController</strong></h2>
+<p>The Partners::RolesController is a controller for managing roles within a business unit. It is a subclass of the Partners::BaseController and includes several before_action filters to set the business unit and role, as well as a find_new_role filter to find a role to replace the one being destroyed.</p>
+<p>The controller has actions for index, show, new, create, update, and destroy for roles. The index action will paginate and retrieve all roles in the system and authorize them. The show action will redirect to the edit action for the role. The new action will create a new role for the business unit. The create action will create a new role with the provided role params and authorize it. The update action will update the role with the provided role params and authorize it. The destroy action will authorize the role and destroy it, optionally replacing it with a different role provided in the params.</p>
+<p>The controller also includes private methods to set the business unit and role based on the params, find a new role to replace the one being destroyed, assign the new role to staff members, and permit the necessary params for creating and updating a role. The model interacted with is the Role model.</p>
+<p>Error conditions include not specifying a replacement role when trying to destroy a role, and any validation errors when creating or updating a role.</p>
+<p>An example of usage would be a staff member visiting the index page to view all roles in the system, clicking on a role to view or edit it, creating a new role, updating an existing role, or destroying a role and replacing it with another.</p>
+<h2 id="sessionscontroller"><strong>SessionsController</strong></h2>
+<p>The Partners::SessionsController is a subclass of the Devise::SessionsController, which is a controller that provides authentication for the application. This controller handles the routes for logging in and logging out of the application. It interacts with the StaffMember model, which is the model for staff members that are allowed to log in to the application. If a staff member attempts to log in with invalid credentials, an error message will be displayed. This controller does not have any specific functions, but rather it is inherited from the Devise::SessionsController and makes use of its functions. An example of usage for this controller would be a staff member navigating to the login page, entering their email and password, and then being redirected to the application's dashboard upon successful login.</p>
 
 
 

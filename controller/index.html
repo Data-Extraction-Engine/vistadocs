@@ -347,6 +347,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#reactentrycontroller" class="md-nav__link">
+    ReactEntryController
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -584,6 +591,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#reactentrycontroller" class="md-nav__link">
+    ReactEntryController
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -676,6 +690,12 @@ end
 end
 </code></pre>
 <p>In this example, the PostsController inherits from ApplicationController and makes use of the custom flash types (:success and :error) defined in the base class. It also utilizes the protect_from_forgery feature to protect against CSRF attacks.</p>
+<h2 id="reactentrycontroller"><strong>ReactEntryController</strong></h2>
+<p>ReactEntryController is a Rails controller class that inherits from ApplicationController. It defines a single action called index, which does not have an associated route by default.</p>
+<p>The index action sets an instance variable @react_entry_props equal to a hash with the key :data and the value "This data is injected from the rails controller". This variable is available to the view that is rendered for the index action.</p>
+<p>No models are interacted with in this controller.</p>
+<p>This controller does not define any error conditions or exception handling.</p>
+<p>To use this controller, you would need to define a route that maps to the index action, such as get '/react_entry' =&gt; 'react_entry#index'. Then, you can visit the URL corresponding to that route in a web browser to see the view rendered by the index action.</p>
 
 
 
