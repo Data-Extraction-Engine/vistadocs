@@ -61,6 +61,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#partnerinteractiontype" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -568,9 +573,94 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          type
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         type
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#partnerinteractiontype" class="md-nav__link">
+    PartnerInteractionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phototype" class="md-nav__link">
+    PhotoType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preferencegrouptype" class="md-nav__link">
+    PreferenceGroupType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questiontype" class="md-nav__link">
+    QuestionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roletype" class="md-nav__link">
+    RoleType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareauthorisetype" class="md-nav__link">
+    ShareAuthoriseType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharerevoketype" class="md-nav__link">
+    ShareRevokeType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharetype" class="md-nav__link">
+    ShareType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffmembertype" class="md-nav__link">
+    StaffMemberType
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -601,6 +691,77 @@
   
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#partnerinteractiontype" class="md-nav__link">
+    PartnerInteractionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#phototype" class="md-nav__link">
+    PhotoType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preferencegrouptype" class="md-nav__link">
+    PreferenceGroupType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questiontype" class="md-nav__link">
+    QuestionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roletype" class="md-nav__link">
+    RoleType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareauthorisetype" class="md-nav__link">
+    ShareAuthoriseType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharerevoketype" class="md-nav__link">
+    ShareRevokeType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharetype" class="md-nav__link">
+    ShareType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#staffmembertype" class="md-nav__link">
+    StaffMemberType
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -616,7 +777,42 @@
 
   <h1>type</h1>
 
-
+<h2 id="partnerinteractiontype"><strong>PartnerInteractionType</strong></h2>
+<p>It is a subclass of the Types::BaseObject class and represents a partner interaction. It has two fields: label, a string that is required and non-null, and value, a string that is required and non-null.</p>
+<p>This object type can be used in a GraphQL schema to define a type for partner interactions. The label and value fields can be used to represent the name and value of the interaction respectively.</p>
+<h2 id="phototype"><strong>PhotoType</strong></h2>
+<p>It represents a photo and has several fields: id, a required ID field; previewUrl, a required string field that maps to the member_id property; largeUrl, a required string field that is resolved using the large URL of the image object; thumbUrl, a required string field that is resolved using the thumb URL of the image object; and previewUrl, a required string field that is resolved using the preview_data value of the image object.</p>
+<p>This object type can be used in a GraphQL schema to define a type for photos. The id field represents the ID of the photo, the previewUrl field represents the URL for the preview of the photo, the largeUrl and thumbUrl fields represent the URLs for the large and thumbnail versions of the photo respectively, and the previewUrl field represents the URL for the preview data of the photo.</p>
+<h2 id="preferencegrouptype"><strong>PreferenceGroupType</strong></h2>
+<p>It takes in two arguments: memberRequestId and body, both of which are required. The memberRequestId argument is the ID of the member request to which the message is being sent, and the body argument is the contents of the message. This function returns an object of type Types::MemberRequestMessageType, which represents a message sent in response to a member request. </p>
+<p>The function first calls the MemberRequests::Message command, passing in the memberRequestId, body, and the current_user from the context. If the command is successful, the function returns the result of the command. If the command is not successful, it raises a GraphQL execution error with the command's errors.</p>
+<p>## <strong>QueryType</strong></p>
+<p>This GraphQL query type defines fields that can be queried by the client. Each field has a name, a type, and a resolve function that specifies how to retrieve the data for that field.</p>
+<p>The branches field returns an array of BranchType objects and is only accessible to users with the manager token context. It retrieves the branches for the current user's organization if the user is an admin, or the branches assigned to the user if they are a branch manager.</p>
+<p>The currentBranch field returns a single BranchType object and is only accessible to users with the staff token context. It retrieves the current branch of the user.</p>
+<p>The roles field returns an array of RoleType objects and is only accessible to users with the manager token context and a current branch. It retrieves the roles for the current user's branch.</p>
+<p>The staffMembers field returns an array of StaffMemberType objects and is only accessible to users with the manager token context, a current branch, and a current role. It retrieves the staff members for the current user's branch and role.</p>
+<p>The user field returns a single UserType object and is only accessible to users with the staff token context and a current branch. It takes an id argument and retrieves the user with the matching id in the current user's branch.</p>
+<p>The users field returns an array of UserType objects and is only accessible to users with the staff token context and a current branch. It takes optional search, before, and limit arguments and retrieves users in the current user's branch, filtered by the search term, limited to those before a certain id, and limited to the specified number.</p>
+<p>The nearbyUsers field returns an array of UserType objects and is only accessible to users with the staff token</p>
+<h2 id="questiontype"><strong>QuestionType</strong></h2>
+<p>The QuestionType is a GraphQL object type that represents a question in the system. It has fields for the id, title, kind, and lockingConditions of the question, as well as a field for the allowsNote property. The allowsNote field represents whether the question allows for a note to be added.</p>
+<p>The QuestionType also has a field called userAnswer, which represents the answer given by a specific user to the question. This field takes an argument of userId, which is the ID of the user for which the answer is being retrieved. The userAnswer field is resolved using a lambda function that fetches the user answer from the user_answers association of the Question object.</p>
+<p>The QuestionType is used to represent a question in the GraphQL API and is typically used in queries to retrieve information about questions.</p>
+<h2 id="roletype"><strong>RoleType</strong></h2>
+<p>The RoleType is a GraphQL object type that represents a role within an organization. It contains fields such as id, name, interactions, preferenceStructure, and topQuestions. The preferenceStructure field is commented out and replaced with an alternative field.</p>
+<p>This type also has a resolve function that is commented out. This function appears to be generating image URLs for small and large sizes, and returning an object with information about the height, source, and width of the images. This object is likely used to provide the client with information about the image to be displayed.</p>
+<h2 id="shareauthorisetype"><strong>ShareAuthoriseType</strong></h2>
+<p>The ShareAuthoriseType is a GraphQL object type that represents the result of an authorization to share user data with a partner app. It has a single field, user, which is of the UserType object type and is required. This field represents the user whose data has been authorized for sharing.</p>
+<h2 id="sharerevoketype"><strong>ShareRevokeType</strong></h2>
+<p>The ShareRevokeType is a GraphQL object type that represents a share that has been revoked. It has two fields:</p>
+<p>user: This is an instance of the UserType object and represents the user whose share has been revoked.</p>
+<p>revoked_at: This field represents the date and time at which the share was revoked. It is an instance of the DateTimeType and is not nullable.</p>
+<p>This object type is likely used to represent the result of a GraphQL mutation that revokes a share. It allows the client to get information about the user whose share was revoked and when the share was revoked.</p>
+<h2 id="sharetype"><strong>ShareType</strong></h2>
+<p>The ShareType GraphQL object type represents a share. It has fields for the ID of the branch and user, the status of the share, the method through which the share was made (via), and the timestamps for when the share was created and updated. It also has fields for the user and branch objects related to the share, as well as the timestamps for when the share was authorized and revoked.</p>
+<h2 id="staffmembertype"><strong>StaffMemberType</strong></h2>
+<p>The StaffMemberType GraphQL object type represents a staff member. It has fields for the ID, employee ID, name, and first and last names of the staff member.</p>
 
 
 
