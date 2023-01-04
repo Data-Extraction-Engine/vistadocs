@@ -517,29 +517,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-v1sync" class="md-nav__link">
-    GET /v1/sync
+  <a href="#post-v1categoriesignore" class="md-nav__link">
+    POST /v1/categories//ignore
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-v1sync" class="md-nav__link">
-    POST /v1/sync
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#post-v1categories4222ignore" class="md-nav__link">
-    POST /v1/categories/4222/ignore
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#delete-v1categories4222ignore" class="md-nav__link">
-    DELETE /v1/categories/4222/ignore
+  <a href="#delete-v1categoriesignore" class="md-nav__link">
+    DELETE /v1/categories//ignore
   </a>
   
 </li>
@@ -653,6 +639,84 @@
     <li class="md-nav__item">
       <a href="../models/version/" class="md-nav__link">
         version
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Graphql
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Graphql" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Graphql
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphql/" class="md-nav__link">
+        structure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphql/resolver/" class="md-nav__link">
+        resolver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphql/type/" class="md-nav__link">
+        type
       </a>
     </li>
   
@@ -781,29 +845,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-v1sync" class="md-nav__link">
-    GET /v1/sync
+  <a href="#post-v1categoriesignore" class="md-nav__link">
+    POST /v1/categories//ignore
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#post-v1sync" class="md-nav__link">
-    POST /v1/sync
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#post-v1categories4222ignore" class="md-nav__link">
-    POST /v1/categories/4222/ignore
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#delete-v1categories4222ignore" class="md-nav__link">
-    DELETE /v1/categories/4222/ignore
+  <a href="#delete-v1categoriesignore" class="md-nav__link">
+    DELETE /v1/categories//ignore
   </a>
   
 </li>
@@ -1318,112 +1368,7 @@ Etag: W/"657c4fa5eae94aa1fcfc41f72713078b"
 </ul>
 </li>
 </ul>
-<h1 id="get-v1sync">GET /v1/sync</h1>
-<ul>
-<li>
-<p>Request</p>
-<ul>
-<li>Headers<pre><code>Cookie: _vista_platform_session=&lt;vista token&gt;
-Authorization: Token token=&lt;auth token&gt;
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>Response 200 (application/json; charset=utf-8)</p>
-<ul>
-<li>
-<p>Headers</p>
-<pre><code>X-Runtime: 0.012769
-Set-Cookie: _vista_platform_session=QkdSYXI4YXVITU55SExTUWNqNzYybG5TTHZjellOUm1hVU1tVEF5QjZYcmlXVCtkY3NIZzJpekJ2czkrbVYycUlIOGFmdUJ0THMxOHViMTgyN04xV2t3WkxzYm5jUjNCY0FCcUliMWZ2OXJvQktxVndobUkyS2pmdjY5TmdwOVUwcHhzUnljSHNFd2JDaEFheGZhSjVnPT0tLUhxZjl5eVF3VEZ0SHd1c09aN3pYU0E9PQ%3D%3D--5ae00d544a9d7b536593a35d8502990225f7ef04; path=/; HttpOnly
-X-XSS-Protection: 1; mode=block
-Transfer-Encoding: chunked
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 9b750da0-28fb-4fc8-91fe-888632876df6
-X-Content-Type-Options: nosniff
-X-Rack-CORS: miss; no-origin
-X-Frame-Options: SAMEORIGIN
-Etag: W/"cde515396cfa9a18a4df24f4ba428ae5"
-</code></pre>
-</li>
-<li>
-<p>Body</p>
-<pre><code>{"answers":[{"questionId":23,"updatedAt":"2017-09-19T15:33:00.033Z"},{"questionId":25,"updatedAt":"2017-09-20T12:13:44.437Z"},{"questionId":34,"updatedAt":"2017-09-20T12:17:08.956Z"},{"questionId":26,"updatedAt":"2017-09-20T12:18:19.558Z"},{"questionId":36,"updatedAt":"2017-09-20T12:29:00.676Z"},{"questionId":27,"updatedAt":"2017-09-22T11:58:21.974Z"},{"questionId":28,"updatedAt":"2017-09-22T11:59:07.897Z"},{"questionId":30,"updatedAt":"2017-09-22T11:59:12.029Z"},{"questionId":32,"updatedAt":"2017-09-22T11:59:18.110Z"},{"questionId":29,"updatedAt":"2017-09-22T12:00:01.611Z"},{"questionId":33,"updatedAt":"2017-09-22T12:00:15.490Z"},{"questionId":31,"updatedAt":"2017-09-22T12:00:24.099Z"},{"questionId":35,"updatedAt":"2017-09-22T12:15:22.340Z"},{"questionId":19,"updatedAt":"2017-09-22T12:35:47.546Z"},{"questionId":20,"updatedAt":"2017-09-22T12:35:50.356Z"},{"questionId":21,"updatedAt":"2017-09-22T12:36:02.139Z"},{"questionId":22,"updatedAt":"2017-09-22T12:36:06.128Z"},{"questionId":37,"updatedAt":"2017-09-25T10:54:56.570Z"},{"questionId":38,"updatedAt":"2017-09-25T10:54:58.493Z"},{"questionId":24,"updatedAt":"2017-09-25T13:32:55.687Z"},{"questionId":39,"updatedAt":"2017-09-25T14:09:28.693Z"},{"questionId":40,"updatedAt":"2017-09-25T14:09:29.674Z"},{"questionId":41,"updatedAt":"2017-09-25T14:09:30.527Z"},{"questionId":44,"updatedAt":"2017-09-29T08:32:07.403Z"}]}
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="post-v1sync">POST /v1/sync</h1>
-<ul>
-<li>
-<p>Request (application/json; charset=utf-8)</p>
-<ul>
-<li>
-<p>Headers</p>
-<pre><code>Cookie: _vista_platform_session=&lt;vista token&gt;
-Authorization: Token token=&lt;auth token&gt;
-</code></pre>
-</li>
-<li>
-<p>Body</p>
-<pre><code>{
-    "update": [
-        {
-            "questionId": 23,
-            "values": "Online!",
-            "note": null
-        }
-    ],
-    "get": [
-        34,
-        26,
-        36
-    ],
-    "delete": [
-        24
-    ],
-    "add": [
-        {
-            "questionId": 24,
-            "values": "Less than $1000"
-        }
-    ]
-}
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p>Response 200 (application/json; charset=utf-8)</p>
-<ul>
-<li>
-<p>Headers</p>
-<pre><code>X-Content-Type-Options: nosniff
-X-Rack-CORS: miss; no-origin
-Etag: W/"7a6c0435085bc365fd48af39a659c339"
-X-Frame-Options: SAMEORIGIN
-X-XSS-Protection: 1; mode=block
-X-Request-Id: 74d19483-7955-4cfd-995c-625bed55abd5
-X-Runtime: 0.664534
-Cache-Control: max-age=0, private, must-revalidate
-Transfer-Encoding: chunked
-</code></pre>
-</li>
-<li>
-<p>Body</p>
-<pre><code>[{"id":15,"questionId":34,"values":"No","note":null,"synced":true},
-
-{"id":16,"questionId":26,"values":"Yes","note":null,"synced":true},
-
-{"id":18,"questionId":36,"values":"First floor","note":null "synced":true}
-    ]
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="post-v1categories4222ignore">POST /v1/categories/4222/ignore</h1>
+<h1 id="post-v1categoriesignore">POST /v1/categories/<category-num>/ignore</h1>
 <ul>
 <li>
 <p>Request</p>
@@ -1449,7 +1394,7 @@ Cache-Control: no-cache
 </ul>
 </li>
 </ul>
-<h1 id="delete-v1categories4222ignore">DELETE /v1/categories/4222/ignore</h1>
+<h1 id="delete-v1categoriesignore">DELETE /v1/categories/<category-num>/ignore</h1>
 <ul>
 <li>
 <p>Request</p>
