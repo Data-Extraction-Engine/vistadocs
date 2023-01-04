@@ -729,6 +729,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#querytype" class="md-nav__link">
+    QueryType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#questiontype" class="md-nav__link">
     QuestionType
   </a>
@@ -766,6 +773,41 @@
         <li class="md-nav__item">
   <a href="#staffmembertype" class="md-nav__link">
     StaffMemberType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subscriptiontype" class="md-nav__link">
+    SubscriptionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timetype" class="md-nav__link">
+    TimeType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokentype" class="md-nav__link">
+    TokenType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useranswertype" class="md-nav__link">
+    UserAnswerType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usertype" class="md-nav__link">
+    UserType
   </a>
   
 </li>
@@ -943,6 +985,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#querytype" class="md-nav__link">
+    QueryType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#questiontype" class="md-nav__link">
     QuestionType
   </a>
@@ -984,6 +1033,41 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#subscriptiontype" class="md-nav__link">
+    SubscriptionType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timetype" class="md-nav__link">
+    TimeType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokentype" class="md-nav__link">
+    TokenType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useranswertype" class="md-nav__link">
+    UserAnswerType
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usertype" class="md-nav__link">
+    UserType
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1003,12 +1087,12 @@
 
 <h2 id="baseobject"><strong>BaseObject</strong></h2>
 <p>Objects in GraphQL represent a group of related fields. They define a set of fields that can be queried by clients, and specify the type of data that each field returns.</p>
-<p>The <code>Types::BaseObject</code> class is intended to be used as a base class for application-specific GraphQL object types. This allows developers to define their own GraphQL object types that inherit common behavior from the base class. For example, developers can define a <code>Types::UserObject</code> class that inherits from <code>Types::BaseObject</code> and adds fields specific to a user object type.</p>
-<p>To use <code>Types::BaseObject</code>, developers should define their own GraphQL object types by creating subclasses of <code>Types::BaseObject</code> and defining the fields for the object type. The fields can then be queried by clients using GraphQL queries.</p>
+<p>The <code>BaseObject</code> class is intended to be used as a base class for application-specific GraphQL object types. This allows developers to define their own GraphQL object types that inherit common behavior from the base class. For example, developers can define a <code>UserObject</code> class that inherits from <code>BaseObject</code> and adds fields specific to a user object type.</p>
+<p>To use <code>BaseObject</code>, developers should define their own GraphQL object types by creating subclasses of <code>BaseObject</code> and defining the fields for the object type. The fields can then be queried by clients using GraphQL queries.</p>
 <h2 id="basescalar"><strong>BaseScalar</strong></h2>
-<p>The <code>Types::BaseScalar</code> class is a subclass of the <code>GraphQL::Schema::Scalar</code> class. It represents a scalar type in a GraphQL schema. A scalar type is a leaf node in the GraphQL type system, representing a primitive value like a string, number, or boolean. The <code>Types::BaseScalar</code> class can be used to define custom scalar types for a GraphQL schema.
-For example, you could define a custom <code>Date</code> scalar type by creating a subclass of <code>Types::BaseScalar</code>:</p>
-<pre><code>class Types::Date &lt; Types::BaseScalar
+<p>The <code>BaseScalar</code> class is a subclass of the <code>GraphQL::Schema::Scalar</code> class. It represents a scalar type in a GraphQL schema. A scalar type is a leaf node in the GraphQL type system, representing a primitive value like a string, number, or boolean. The <code>BaseScalar</code> class can be used to define custom scalar types for a GraphQL schema.
+For example, you could define a custom <code>Date</code> scalar type by creating a subclass of <code>BaseScalar</code>:</p>
+<pre><code>class Date &lt; BaseScalar
 description "A date value in the format 'YYYY-MM-DD'"
 
 def self.coerce_input(input_value, context)
@@ -1021,84 +1105,84 @@ end
 end
 </code></pre>
 <p>You can then use this <code>Date</code> scalar type in your GraphQL schema:</p>
-<pre><code>field :birthday, Types::Date, null: false
+<pre><code>field :birthday, Date, null: false
 </code></pre>
 <p>This field represents a date value that can be queried and modified using GraphQL. The <code>coerce_input</code> and <code>coerce_result</code> methods handle converting between the GraphQL input and Ruby values.</p>
 <h2 id="branchtype"><strong>BranchType</strong></h2>
-<p>The <code>Types::BranchType</code> is a GraphQL object type that represents a branch in the system. It has three fields, <code>id</code>, <code>name</code>, and <code>address</code>, all of which are required. The <code>id</code> field is of type <code>ID</code>, the <code>name</code> field is of type <code>String</code>, and the <code>address</code> field is also of type <code>String</code>. These fields represent the unique identifier for a branch, the name of the branch, and the address of the branch, respectively. This object type can be used in GraphQL queries and mutations to retrieve and manipulate data about branches in the system.</p>
+<p>The <code>BranchType</code> is a GraphQL object type that represents a branch in the system. It has three fields, <code>id</code>, <code>name</code>, and <code>address</code>, all of which are required. The <code>id</code> field is of type <code>ID</code>, the <code>name</code> field is of type <code>String</code>, and the <code>address</code> field is also of type <code>String</code>. These fields represent the unique identifier for a branch, the name of the branch, and the address of the branch, respectively. This object type can be used in GraphQL queries and mutations to retrieve and manipulate data about branches in the system.</p>
 <h2 id="businessunittype"><strong>BusinessUnitType</strong></h2>
-<p>Types::BusinessUnitType is a GraphQL object type representing a business unit in the application. It has two fields:
+<p>BusinessUnitType is a GraphQL object type representing a business unit in the application. It has two fields:
 •<code>id</code>: a unique identifier for the business unit, of type ID.
 •<code>name</code>: the name of the business unit, of type String.
 This object type can be used as a return type for GraphQL queries and mutations related to business units, allowing clients to request and receive data about business units. For example, a GraphQL query might include a field for fetching a business unit by its ID, and this object type would be used to define the shape of the data returned in the response.</p>
 <h2 id="categorytype"><strong>CategoryType</strong></h2>
-<p>The <code>Types::CategoryType</code> is a GraphQL object type representing a category. It has several fields:
+<p>The <code>CategoryType</code> is a GraphQL object type representing a category. It has several fields:
 •<code>id</code>: The ID of the category, represented as a string.
 •<code>title</code>: The title of the category, represented as a string.
 •<code>description</code>: A description of the category, represented as a string.
 •<code>ancestry</code>: A string representing the ancestry of the category in the category tree.
 •<code>position</code>: The position of the category in the category tree, represented as an integer.
-•<code>questions</code>: An array of <code>Types::QuestionType</code> objects representing the questions belonging to this category.
-•<code>categories</code>: An array of <code>Types::CategoryType</code> objects representing the child categories of this category.
+•<code>questions</code>: An array of <code>QuestionType</code> objects representing the questions belonging to this category.
+•<code>categories</code>: An array of <code>CategoryType</code> objects representing the child categories of this category.
 •<code>questionsCount</code>: An integer representing the number of questions belonging to this category.
 •<code>answeredQuestionsCount</code>: An integer representing the number of questions belonging to this category that have been answered by a specific user. This field takes an argument <code>userId</code>, which is the ID of the user as a string.</p>
 <h2 id="checkintype"><strong>CheckInType</strong></h2>
-<p>The <code>Types::CheckInType</code> is a GraphQL object type that represents a check-in. It has the following fields:
+<p>The <code>CheckInType</code> is a GraphQL object type that represents a check-in. It has the following fields:
 •<code>id</code>: This is the ID of the check-in. It is a scalar type of <code>types.ID</code>.
 •<code>userId</code>: This is the ID of the user who checked in. It is a scalar type of <code>types.ID</code>. It maps to the <code>user_id</code> field in the database.
 •<code>branchId</code>: This is the ID of the branch where the user checked in. It is a scalar type of <code>types.ID</code>. It maps to the <code>branch_id</code> field in the database.
-•<code>arrivalDate</code>: This is the date of the check-in. It is a scalar type of <code>Types::DateType</code>. It maps to the <code>arrival_date</code> field in the database.
-•<code>arrivalTimeStart</code>: This is the start time of the check-in. It is a scalar type of <code>Types::TimeType</code>. It maps to the <code>arrival_time_start</code> field in the database.
-•<code>arrivalTimeEnd</code>: This is the end time of the check-in. It is a scalar type of <code>Types::TimeType</code>. It maps to the <code>arrival_time_end</code> field in the database.</p>
+•<code>arrivalDate</code>: This is the date of the check-in. It is a scalar type of <code>DateType</code>. It maps to the <code>arrival_date</code> field in the database.
+•<code>arrivalTimeStart</code>: This is the start time of the check-in. It is a scalar type of <code>TimeType</code>. It maps to the <code>arrival_time_start</code> field in the database.
+•<code>arrivalTimeEnd</code>: This is the end time of the check-in. It is a scalar type of <code>TimeType</code>. It maps to the <code>arrival_time_end</code> field in the database.</p>
 <h2 id="datetimetype"><strong>DateTimeType</strong></h2>
-<p>The <code>Types::DateTimeType</code> is a GraphQL scalar type that represents a date and time value in the ISO-8601 format. It is defined as a subclass of <code>Types::BaseScalar</code>, which is a base class for custom scalar types in the GraphQL schema.
+<p>The <code>DateTimeType</code> is a GraphQL scalar type that represents a date and time value in the ISO-8601 format. It is defined as a subclass of <code>BaseScalar</code>, which is a base class for custom scalar types in the GraphQL schema.
 The <code>coerce_input</code> method is used to convert the input value (a string in ISO-8601 format) into a Ruby <code>Time</code> object. The <code>coerce_result</code> method is used to convert a Ruby <code>Time</code> object into a string in ISO-8601 format, which is the format expected by the GraphQL schema.
 This scalar type can be used in the GraphQL schema to define fields that return date and time values. For example:</p>
-<pre><code>field :createdAt, Types::DateTimeType, null: false
+<pre><code>field :createdAt, DateTimeType, null: false
 </code></pre>
 <p>This will define a <code>createdAt</code> field that returns a date and time value in the ISO-8601 format. When queried, the field will return a string in the following format: <code>"YYYY-MM-DDTHH:MM:SS.SSSZ"</code>.</p>
 <h2 id="datetype"><strong>DateType</strong></h2>
-<p>The <code>Types::DateType</code> is a GraphQL scalar type representing a date value. It includes two methods, <code>coerce_input</code> and <code>coerce_result</code>, which define how input values should be coerced (converted) when they are passed to the GraphQL server, and how result values should be coerced when they are returned from the server to the client.</p>
+<p>The <code>DateType</code> is a GraphQL scalar type representing a date value. It includes two methods, <code>coerce_input</code> and <code>coerce_result</code>, which define how input values should be coerced (converted) when they are passed to the GraphQL server, and how result values should be coerced when they are returned from the server to the client.</p>
 <p>In this case, <code>coerce_input</code> converts the input value to a date object, and <code>coerce_result</code> converts the date object to an ISO 8601 formatted string. This allows the GraphQL server to accept and return date values in a standardized way.</p>
 <h2 id="interactiontype"><strong>InteractionType</strong></h2>
-<p>The <code>Types::InteractionType</code> is a GraphQL object type that represents an interaction between a user and a staff member. It has several fields:
+<p>The <code>InteractionType</code> is a GraphQL object type that represents an interaction between a user and a staff member. It has several fields:
 •<code>id</code>: The ID of the interaction. This is an integer and cannot be null.
-•<code>user</code>: The user who is interacting with the staff member. This is a <code>Types::UserType</code> object and cannot be null.
+•<code>user</code>: The user who is interacting with the staff member. This is a <code>UserType</code> object and cannot be null.
 •<code>type</code>: The type of interaction. This is a string and cannot be null.
-•<code>date</code>: The date of the interaction. This is a <code>Types::DateType</code> object and cannot be null.
+•<code>date</code>: The date of the interaction. This is a <code>DateType</code> object and cannot be null.
 •<code>value</code>: The value of the interaction. This is a string and can be null.
-•<code>staffMember</code>: The staff member who is interacting with the user. This is a <code>Types::StaffMemberType</code> object and can be null.</p>
+•<code>staffMember</code>: The staff member who is interacting with the user. This is a <code>StaffMemberType</code> object and can be null.</p>
 <h2 id="jsontype"><strong>JsonType</strong></h2>
-<p>The <code>Types::JsonType</code> is a custom scalar type for GraphQL that allows for passing JSON data between the client and server. The <code>coerce_input</code> and <code>coerce_result</code> methods define how the server should handle incoming and outgoing data of this type. In this implementation, the methods simply return the passed in value, which means that the server is not doing any additional processing or manipulation of the JSON data. This scalar type can be used in GraphQL queries and mutations to pass complex data structures as arguments or return values.</p>
+<p>The <code>JsonType</code> is a custom scalar type for GraphQL that allows for passing JSON data between the client and server. The <code>coerce_input</code> and <code>coerce_result</code> methods define how the server should handle incoming and outgoing data of this type. In this implementation, the methods simply return the passed in value, which means that the server is not doing any additional processing or manipulation of the JSON data. This scalar type can be used in GraphQL queries and mutations to pass complex data structures as arguments or return values.</p>
 <h2 id="memberrequestmessagetype"><strong>MemberRequestMessageType</strong></h2>
-<p>The Types::MemberRequestMessageType is a GraphQL object type that represents a message sent in relation to a member request. It has the following fields:
+<p>The MemberRequestMessageType is a GraphQL object type that represents a message sent in relation to a member request. It has the following fields:
 •<code>id</code>: The ID of the message. It is of type <code>types.ID</code> which is a GraphQL type representing a unique identifier.
-•<code>messageable</code>: The sender of the message. It is of type <code>Types::MessageableType</code>, which represents the message sender.
+•<code>messageable</code>: The sender of the message. It is of type <code>MessageableType</code>, which represents the message sender.
 •<code>body</code>: The content of the message. It is of type <code>types.String</code>, which is a GraphQL type representing a string value.
-•<code>memberRequest</code>: The member request that this message is related to. It is of type <code>Types::MemberRequestType</code>, which represents a member request.
+•<code>memberRequest</code>: The member request that this message is related to. It is of type <code>MemberRequestType</code>, which represents a member request.
 •<code>senderName</code>: The name of the sender of the message. It is of type <code>types.String</code>.
 •<code>senderType</code>: The type of the sender of the message. It is of type <code>types.String</code>.
-•<code>createdAt</code>: The time when the message was created. It is of type <code>Types::DateTimeType</code>, which represents a date and time value.</p>
+•<code>createdAt</code>: The time when the message was created. It is of type <code>DateTimeType</code>, which represents a date and time value.</p>
 <h2 id="memberrequesttypetype"><strong>MemberRequestTypeType</strong></h2>
-<p>The <code>Types::MemberRequestTypeType</code> GraphQL object type represents a type of member request in the system. It has three fields:
+<p>The <code>MemberRequestTypeType</code> GraphQL object type represents a type of member request in the system. It has three fields:
 <code>id</code>: The ID of the member request type.
-<code>business_unit</code>: The business unit that this member request type belongs to. This field is of the type <code>Types::BusinessUnitType</code>.
+<code>business_unit</code>: The business unit that this member request type belongs to. This field is of the type <code>BusinessUnitType</code>.
 <code>name</code>: The name of the member request type.
 This object type is typically used to represent a member request type in a GraphQL query or mutation. For example, a GraphQL query might request the <code>id</code>, <code>name</code>, and <code>business_unit</code> fields for a given member request type.</p>
 <h2 id="memberrequesttype"><strong>MemberRequestType</strong></h2>
-<p>The <code>Types::MemberRequestType</code> is a GraphQL object type that represents a member request. It has the following fields:
+<p>The <code>MemberRequestType</code> is a GraphQL object type that represents a member request. It has the following fields:
 •<code>id</code>: The ID of the member request, represented as an integer.
-•<code>user</code>: The user who made the member request, represented as a <code>Types::UserType</code> object.
-•<code>branch</code>: The branch associated with the member request, represented as a <code>Types::BranchType</code> object.
+•<code>user</code>: The user who made the member request, represented as a <code>UserType</code> object.
+•<code>branch</code>: The branch associated with the member request, represented as a <code>BranchType</code> object.
 •<code>status</code>: The status of the member request, represented as a string.
 •<code>read</code>: A boolean indicating whether the member request has been read by the member.
-•<code>updatedAt</code>: The last update time of the member request, represented as a <code>Types::DateTimeType</code> object.
+•<code>updatedAt</code>: The last update time of the member request, represented as a <code>DateTimeType</code> object.
 •<code>displayName</code>: The name of the user who made the member request, represented as a string.
-•<code>memberRequestType</code>: The type of the member request, represented as a <code>Types::MemberRequestTypeType</code> object.
-•<code>memberRequestMessages</code>: An array of <code>Types::MemberRequestMessageType</code> objects that represent the messages associated with the member request.
-•<code>lastMessage</code>: The last message associated with the member request, represented as a <code>Types::MemberRequestMessageType</code> object.</p>
+•<code>memberRequestType</code>: The type of the member request, represented as a <code>MemberRequestTypeType</code> object.
+•<code>memberRequestMessages</code>: An array of <code>MemberRequestMessageType</code> objects that represent the messages associated with the member request.
+•<code>lastMessage</code>: The last message associated with the member request, represented as a <code>MemberRequestMessageType</code> object.</p>
 <h2 id="messageabletype"><strong>MessageableType</strong></h2>
-<p>The <code>Types::MessageableType</code> is a GraphQL union type that represents a user or a staff member who may send a MemberRequest message. It is composed of the <code>Types::UserType</code> and <code>Types::StaffMemberType</code> types and defines a <code>resolve_type</code> method that determines which of these types an object belongs to. When a member request message is queried, this union type is used to determine whether the sender is a user or a staff member and return the appropriate type. This allows the GraphQL API to return a consistent shape of data for messages sent by either type of messageable.</p>
+<p>The <code>MessageableType</code> is a GraphQL union type that represents a user or a staff member who may send a MemberRequest message. It is composed of the <code>UserType</code> and <code>StaffMemberType</code> types and defines a <code>resolve_type</code> method that determines which of these types an object belongs to. When a member request message is queried, this union type is used to determine whether the sender is a user or a staff member and return the appropriate type. This allows the GraphQL API to return a consistent shape of data for messages sent by either type of messageable.</p>
 <h2 id="moodtype"><strong>MoodType</strong></h2>
 <p>The <code>MoodType</code> is a GraphQL object type that represents a mood. It has three fields:
 <code>userId</code>: This is the ID of the user who has the mood.
@@ -1116,15 +1200,15 @@ readMemberRequest: This field accepts input and marks a member request as read. 
 <!-- SAlMAN -->
 
 <h2 id="partnerinteractiontype"><strong>PartnerInteractionType</strong></h2>
-<p>It is a subclass of the Types::BaseObject class and represents a partner interaction. It has two fields: label, a string that is required and non-null, and value, a string that is required and non-null.</p>
+<p>It is a subclass of the BaseObject class and represents a partner interaction. It has two fields: label, a string that is required and non-null, and value, a string that is required and non-null.</p>
 <p>This object type can be used in a GraphQL schema to define a type for partner interactions. The label and value fields can be used to represent the name and value of the interaction respectively.</p>
 <h2 id="phototype"><strong>PhotoType</strong></h2>
 <p>It represents a photo and has several fields: id, a required ID field; previewUrl, a required string field that maps to the member_id property; largeUrl, a required string field that is resolved using the large URL of the image object; thumbUrl, a required string field that is resolved using the thumb URL of the image object; and previewUrl, a required string field that is resolved using the preview_data value of the image object.</p>
 <p>This object type can be used in a GraphQL schema to define a type for photos. The id field represents the ID of the photo, the previewUrl field represents the URL for the preview of the photo, the largeUrl and thumbUrl fields represent the URLs for the large and thumbnail versions of the photo respectively, and the previewUrl field represents the URL for the preview data of the photo.</p>
 <h2 id="preferencegrouptype"><strong>PreferenceGroupType</strong></h2>
-<p>It takes in two arguments: memberRequestId and body, both of which are required. The memberRequestId argument is the ID of the member request to which the message is being sent, and the body argument is the contents of the message. This function returns an object of type Types::MemberRequestMessageType, which represents a message sent in response to a member request. </p>
+<p>It takes in two arguments: memberRequestId and body, both of which are required. The memberRequestId argument is the ID of the member request to which the message is being sent, and the body argument is the contents of the message. This function returns an object of type MemberRequestMessageType, which represents a message sent in response to a member request. </p>
 <p>The function first calls the MemberRequests::Message command, passing in the memberRequestId, body, and the current_user from the context. If the command is successful, the function returns the result of the command. If the command is not successful, it raises a GraphQL execution error with the command's errors.</p>
-<p>## <strong>QueryType</strong></p>
+<h2 id="querytype"><strong>QueryType</strong></h2>
 <p>This GraphQL query type defines fields that can be queried by the client. Each field has a name, a type, and a resolve function that specifies how to retrieve the data for that field.</p>
 <p>The branches field returns an array of BranchType objects and is only accessible to users with the manager token context. It retrieves the branches for the current user's organization if the user is an admin, or the branches assigned to the user if they are a branch manager.</p>
 <p>The currentBranch field returns a single BranchType object and is only accessible to users with the staff token context. It retrieves the current branch of the user.</p>
@@ -1151,6 +1235,36 @@ readMemberRequest: This field accepts input and marks a member request as read. 
 <p>The ShareType GraphQL object type represents a share. It has fields for the ID of the branch and user, the status of the share, the method through which the share was made (via), and the timestamps for when the share was created and updated. It also has fields for the user and branch objects related to the share, as well as the timestamps for when the share was authorized and revoked.</p>
 <h2 id="staffmembertype"><strong>StaffMemberType</strong></h2>
 <p>The StaffMemberType GraphQL object type represents a staff member. It has fields for the ID, employee ID, name, and first and last names of the staff member.</p>
+<h2 id="subscriptiontype"><strong>SubscriptionType</strong></h2>
+<p>The SubscriptionType GraphQL object type defines several fields for subscriptions that a client can subscribe to in order to receive updates in real-time.</p>
+<p>The shareChanged field will emit an update when a user shares or revokes their profile with another user. The type of the update is ShareType, and the subscription scope is limited to the current branch ID.</p>
+<p>The moodChanged field will emit an update when a user updates their mood. The type of the update is MoodType, and the subscription scope is limited to the current branch ID.</p>
+<p>The newMessage field will emit an update when a user sends a new message in a member request. The type of the update is MemberRequestMessageType, and the subscription scope is limited to the current user ID.</p>
+<p>The newMemberRequest field will emit an update when a user submits a new member request. The type of the update is MemberRequestType, and the subscription scope is limited to the current user ID.</p>
+<p>The requestCountChanged field will emit an update when a user's request count changes for a branch. The type of the update is MemberRequestType, and the subscription scope is limited to the current branch ID.</p>
+<h2 id="timetype"><strong>TimeType</strong></h2>
+<p>The TimeType is a GraphQL scalar type that represents a specific point in time. It is defined to parse input values as a Time object in the application's time zone, and to output the result as a formatted string in UTC time, in the format '%H:%M' (hours and minutes). This allows clients to send and receive time values in a standard format, while allowing the server to store and manipulate them in the time zone it is configured to use.</p>
+<h2 id="tokentype"><strong>TokenType</strong></h2>
+<p>The TokenType GraphQL object type represents an authentication token for a user. It has a single field, token, which is a string representing the token. This type is likely used in the context of a GraphQL mutation or query that allows a user to authenticate with a token in order to access certain resources.</p>
+<h2 id="useranswertype"><strong>UserAnswerType</strong></h2>
+<p>The UserAnswerType is a GraphQL object type that represents a user's answer to a question. It has fields for the id, userId, questionId, note, and values of the answer, as well as timestamps for when the answer was created and last updated. It also has a field for linkedCategories, which returns an array of categories that are linked to the user's answer through their visibility conditions. The linkedCategories field is resolved by querying the Category model for categories whose visibility conditions match the user's answer.</p>
+<h2 id="usertype"><strong>UserType</strong></h2>
+<p>The UserType is a GraphQL object type that represents a user. It has several fields, including:</p>
+<p>id: the ID of the user, represented as a string
+memberId: the ID of the user's member, represented as a string
+firstName: the first name of the user, represented as a string
+lastName: the last name of the user, represented as a string
+name: the full name of the user, represented as a string
+sharedAt: the date and time when the user shared their profile with the current branch, represented as a DateTime object
+mood: the mood of the user, represented as a string
+checkIn: the current check-in of the user at the current branch, represented as a CheckInType object
+photo: the photo of the user, represented as a PhotoType object
+jobTitle: the job title of the user, represented as a string
+company: the company the user works for, represented as a string
+address: the address of the user, represented as a string
+gender: the gender of the user, represented as a string
+personality: the personality traits of the user, represented as a JSON object
+requestCount: the number of open and pending member requests the user has at the current branch, represented as an integer</p>
 
 
 
